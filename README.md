@@ -7,7 +7,7 @@
 **Pixel Defense** is a generic pixel-styled tower defense game (TD) made in C++ using SFML.
 ## UML Class Diagram
 
-![Class Diagram](TowerDefense.drawio.svg)
+![Class Diagram](PixelDefense.drawio.svg)
 
 
 ## Authors
