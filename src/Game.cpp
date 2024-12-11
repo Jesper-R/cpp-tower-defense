@@ -1,0 +1,60 @@
+#include "Game.h"
+#include <iostream>
+
+void Game::handleEvents()
+{
+    sf::Event event;
+    while (this->window.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+        {
+            this->window.close();
+        }
+    }
+}
+
+void Game::update()
+{
+    elapsedTimeSinceLastUpdate += clock.restart();
+    std::cout << "Elapsed time: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
+
+    while (elapsedTimeSinceLastUpdate > timePerFrame)
+    {
+        elapsedTimeSinceLastUpdate -= timePerFrame;
+        std::cout << "Updated elapsedTimeSinceLastUpdate: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
+    }
+}
+
+void Game::render()
+{
+    this->window.clear();
+    sf::CircleShape shape(50);
+    shape.setFillColor(sf::Color::Red);
+    this->window.draw(shape);
+    this->window.display();
+}
+
+Game::Game()
+    : window(sf::VideoMode(WIDTH, HEIGHT), "Pixel Defense"),
+      timePerFrame(sf::seconds(1.f / 60.f)),
+      elapsedTimeSinceLastUpdate(sf::Time::Zero)
+{
+    //this->balloon = new Balloon(3.0f);
+    //this->character.receiveBalloon(this->balloon);
+}
+
+Game::~Game()
+{
+    //delete this->balloon;
+}
+
+void Game::run()
+{
+    while (this->window.isOpen())
+    {
+        std::cout << "Running loop..." << std::endl;
+        handleEvents();
+        update();
+        render();
+    }
+}
