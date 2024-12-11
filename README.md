@@ -1,3 +1,3 @@
 # cpp-tower-defense
 
-![Class Diagram](TowerDefense.drawio.png)
+![Class Diagram](TowerDefense.drawio.svg)
