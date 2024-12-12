@@ -31,6 +31,20 @@ void Game::render()
     sf::CircleShape shape(50);
     shape.setFillColor(sf::Color::Red);
     this->window.draw(shape);
+    for (int i = 0; i < GRID_HEIGHT * GRID_WIDTH; ++i) {
+        sf::Texture texture;
+        if (!texture.loadFromFile("../src/assets/paths/0000/1.png"))
+        {
+            std::cout << "Failed to load texture" << std::endl;
+        }
+        sf::Sprite sprite;
+        sprite.setPosition(i % GRID_WIDTH * GRID_SIZE, i / GRID_WIDTH * GRID_SIZE);
+        sprite.setTexture(texture);
+        this->window.draw(sprite);
+    }
+
+
+
     this->window.display();
 }
 
