@@ -15,7 +15,13 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(cpp-tower-defense src/main.cpp
         src/Game.cpp
-        src/Game.h)
+        src/Game.h
+        src/GridCell.cpp
+        src/GridCell.h
+        src/GameMap.cpp
+        src/GameMap.h
+        src/Path.cpp
+        src/Path.h)
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_compile_features(cpp-tower-defense PRIVATE cxx_std_17)
 
