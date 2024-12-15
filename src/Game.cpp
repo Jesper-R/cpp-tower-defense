@@ -35,7 +35,7 @@ void Game::render()
     this->window.draw(shape);
     for (int i = 0; i < GRID_HEIGHT * GRID_WIDTH; ++i) {
         sf::Texture texture;
-        if (!texture.loadFromFile("../src/assets/paths/0000/1.png"))
+        if (!texture.loadFromFile("../src/assets/paths/0000/grass.png"))
         {
             std::cout << "Failed to load texture" << std::endl;
         }
