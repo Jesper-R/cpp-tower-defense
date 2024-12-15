@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <iostream>
 
+#include "GameMap.h"
+
 void Game::handleEvents()
 {
     sf::Event event;
@@ -28,7 +30,7 @@ void Game::update()
 void Game::render()
 {
     this->window.clear();
-    sf::CircleShape shape(50);
+    /*sf::CircleShape shape(50);
     shape.setFillColor(sf::Color::Red);
     this->window.draw(shape);
     for (int i = 0; i < GRID_HEIGHT * GRID_WIDTH; ++i) {
@@ -41,7 +43,9 @@ void Game::render()
         sprite.setPosition(i % GRID_WIDTH * GRID_SIZE, i / GRID_WIDTH * GRID_SIZE);
         sprite.setTexture(texture);
         this->window.draw(sprite);
-    }
+    }*/
+
+    map.render();
 
 
 
@@ -53,8 +57,8 @@ Game::Game()
       timePerFrame(sf::seconds(1.f / 60.f)),
       elapsedTimeSinceLastUpdate(sf::Time::Zero)
 {
-    //this->balloon = new Balloon(3.0f);
-    //this->character.receiveBalloon(this->balloon);
+
+    map.loadMapFromFile("map.json");
 }
 
 Game::~Game()

@@ -6,7 +6,7 @@
 #define GAMEMAP_H
 
 #include "GridCell.h"
-
+#include <string>
 
 
 class GameMap {
@@ -14,8 +14,9 @@ class GameMap {
 	public:
 	GameMap();
 	GridCell* getGridCell(int x, int y);
-
-
+public:
+	void loadMapFromFile(std::string filename);
+	void render();
 };
 
 

@@ -3,3 +3,10 @@
 //
 
 #include "GameMap.h"
+#include <string>
+
+void GameMap::loadMapFromFile(std::string filename) {
+}
+
+void GameMap::render() {
+}
