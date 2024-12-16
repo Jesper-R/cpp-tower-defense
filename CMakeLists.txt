@@ -13,7 +13,14 @@ FetchContent_Declare(SFML
         SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(cpp-tower-defense src/main.cpp
+FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.11.2
+        GIT_SHALLOW ON)
+FetchContent_MakeAvailable(nlohmann_json)
+
+add_executable(cpp-tower-defense src/GameMapTest.cpp
         src/Game.cpp
         src/Game.h
         src/GridCell.cpp
@@ -21,8 +28,10 @@ add_executable(cpp-tower-defense src/main.cpp
         src/GameMap.cpp
         src/GameMap.h
         src/Path.cpp
-        src/Path.h)
+        src/Path.h
+        src/GameMapTest.cpp)
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
+target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)
 target_compile_features(cpp-tower-defense PRIVATE cxx_std_17)
 
 if(WIN32)

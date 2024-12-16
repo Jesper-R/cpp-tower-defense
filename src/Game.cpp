@@ -45,7 +45,7 @@ void Game::render()
         this->window.draw(sprite);
     }*/
 
-    map.render();
+    //map.render();
 
 
 
@@ -58,7 +58,7 @@ Game::Game()
       elapsedTimeSinceLastUpdate(sf::Time::Zero)
 {
 
-    map.loadMapFromFile("map.json");
+    //map.loadMapFromFile("map.json");
 }
 
 Game::~Game()

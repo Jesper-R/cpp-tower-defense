@@ -7,17 +7,21 @@
 
 #include "GridCell.h"
 #include <string>
+#include <vector>
 
 
 class GameMap {
-	GridCell gridCells[20][11];
+	std::vector<std::vector<GridCell>> map;
+	int width, height;
 	public:
 	GameMap();
 	GridCell* getGridCell(int x, int y);
 public:
 	void loadMapFromFile(std::string filename);
 	void render();
+	std::vector<std::vector<GridCell>> const getMap();
 };
+
 
 
 

@@ -3,9 +3,16 @@
 //
 
 #include "GridCell.h"
+#include <string>
+
+using namespace std;
+
+GridCell::GridCell() {
+}
 
 GridCell::GridCell(sf::Vector2u gridPos) {
 	this->gridPos = gridPos;
+
 }
 
 bool GridCell::canPlace() {

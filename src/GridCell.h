@@ -7,17 +7,19 @@
 
 #include <SFML/System/Vector2.hpp>
 
-
+#include <string>
+using namespace std;
 
 class GridCell {
-  bool containsTower;
-  sf::Vector2u gridPos;
-  //occupant
+    bool containsTower;
+    sf::Vector2u gridPos;
+    //occupant
 public:
-  GridCell(sf::Vector2u gridPos);
-  bool canPlace();
-  void setOccupant();
-  void clearOccupant();
+    GridCell();
+    GridCell(sf::Vector2u gridPos);
+    bool canPlace();
+    void setOccupant();
+    void clearOccupant();
 };
 
 
