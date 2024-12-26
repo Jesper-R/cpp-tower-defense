@@ -3,6 +3,8 @@
 
 #include "GameMap.h"
 
+
+
 void Game::handleEvents()
 {
     sf::Event event;
@@ -18,12 +20,12 @@ void Game::handleEvents()
 void Game::update()
 {
     elapsedTimeSinceLastUpdate += clock.restart();
-    std::cout << "Elapsed time: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
+    //std::cout << "Elapsed time: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
 
     while (elapsedTimeSinceLastUpdate > timePerFrame)
     {
         elapsedTimeSinceLastUpdate -= timePerFrame;
-        std::cout << "Updated elapsedTimeSinceLastUpdate: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
+        //std::cout << "Updated elapsedTimeSinceLastUpdate: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
     }
 }
 
@@ -45,7 +47,7 @@ void Game::render()
         this->window.draw(sprite);
     }*/
 
-    //map.render();
+    map.render(this->window);
 
 
 
@@ -53,10 +55,14 @@ void Game::render()
 }
 
 Game::Game()
-    : window(sf::VideoMode(WIDTH, HEIGHT), "Pixel Defense"),
+    :
       timePerFrame(sf::seconds(1.f / 60.f)),
       elapsedTimeSinceLastUpdate(sf::Time::Zero)
 {
+    map.loadMapFromFile("../src/map.json");
+    int width = map.getWidth() * GRID_SIZE;
+    int height = map.getHeight() * GRID_SIZE;
+    this->window.create(sf::VideoMode(width, height), "Pixel Defense");
 
     //map.loadMapFromFile("map.json");
 }
@@ -70,7 +76,7 @@ void Game::run()
 {
     while (this->window.isOpen())
     {
-        std::cout << "Running loop..." << std::endl;
+        //std::cout << "Running loop..." << std::endl;
         handleEvents();
         update();
         render();

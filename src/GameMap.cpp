@@ -7,6 +7,7 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 using json = nlohmann::json;
@@ -30,23 +31,72 @@ void GameMap::loadMapFromFile(std::string filename) {
 
     this->width = mapData["width"];
     this->height = mapData["height"];
-    vector<vector<GridCell>> map(width, vector<GridCell>(height, GridCell()));
+    vector<vector<GridCell>> map(width, vector<GridCell>(height));
 
     for (auto path: mapData["paths"]) {
         int x = path["x"];
         int y = path["y"];
-        string pathType = path["path_type"];
+        y = height - y - 1;
+        string pathType = "paths";
+        string pathName = path["path_name"];
 
-        map[x][y] = GridCell(sf::Vector2u(x, y));
+        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName);
     }
+    for (auto path: mapData["grid_blocks"]) {
+        int x = path["x"];
+        int y = path["y"];
+        y = height - y - 1;
+        string pathType = "grid_blocks";
+        string pathName = path["path_name"];
+
+        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName);
+    }
+
+   for (int i = 0; i < width; ++i) {
+       for (int j = 0; j < height; ++j) {
+           Path* path = map[i][j].getPath();
+           if (!path) {
+               std::cout << "empty at " << i << ", " << j << std::endl;
+               map[i][j] = GridCell(sf::Vector2u(i, j), "grid_blocks", Path("grid_blocks").getPathName());
+           }
+       }
+   }
+
 
     this->map = map;
     cout << "finished loading from file" << endl;
 }
 
-void GameMap::render() {
+void GameMap::render(sf::RenderWindow &window) {
+    for (int i = 0; i < this->width; ++i) {
+        for (int j = 0; j < this->height; ++j) {
+            sf::Texture texture;
+            Path* path = map[i][j].getPath();
+            string documentPath = "0";
+            if(path) {
+                documentPath = "../src/assets/" + path->getPathType() + "/" + path->getPathName() + ".png";
+            }
+            if (path && !texture.loadFromFile("../src/assets/" + path->getPathType() + "/" + path->getPathName() + ".png")) {
+                std::cout << "Failed to load texture" << std::endl;
+            }
+            sf::Sprite sprite;
+            sprite.setPosition(i * 64, j * 64);
+            sprite.setTexture(texture);
+            window.draw(sprite);
+        }
+    }
 }
+
+
 
 std::vector<std::vector<GridCell>> const GameMap::getMap() {
     return this->map;
+}
+
+int GameMap::getWidth() {
+    return width;
+}
+
+int GameMap::getHeight() {
+    return height;
 }
