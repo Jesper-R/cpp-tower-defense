@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <iostream>
 
-#include "GameMap.h"
+#include "map_code/GameMap.h"
 
 
 

@@ -23,12 +23,12 @@ FetchContent_MakeAvailable(nlohmann_json)
 add_executable(cpp-tower-defense src/main.cpp
         src/Game.cpp
         src/Game.h
-        src/GridCell.cpp
-        src/GridCell.h
-        src/GameMap.cpp
-        src/GameMap.h
-        src/CellBlock.cpp
-        src/CellBlock.h
+        src/map_code/GridCell.cpp
+        src/map_code/GridCell.h
+        src/map_code/GameMap.cpp
+        src/map_code/GameMap.h
+        src/map_code/CellBlock.cpp
+        src/map_code/CellBlock.h
 )
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)

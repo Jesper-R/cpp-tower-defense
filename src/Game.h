@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "GameMap.h"
+#include "map_code/GameMap.h"
 
 class Game
 {

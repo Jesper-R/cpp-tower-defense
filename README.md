@@ -1,5 +1,4 @@
 
-![Logo](pixel_defense_logo.png)
 
 
 # Pixel Defense
