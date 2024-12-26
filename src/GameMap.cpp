@@ -1,7 +1,3 @@
-//
-// Created by Jespe on 2024-12-15.
-//
-
 #include "GameMap.h"
 #include <string>
 #include <nlohmann/json.hpp>
@@ -31,48 +27,37 @@ void GameMap::loadMapFromFile(std::string filename) {
 
     this->width = mapData["width"];
     this->height = mapData["height"];
-    vector<vector<GridCell>> map(width, vector<GridCell>(height));
+    vector map(width, vector<GridCell>(height));
 
-    for (auto path: mapData["paths"]) {
+    auto initializeGridCell = [&](const json& path, const string& pathType, bool blocksPlacement = true) {
         int x = path["x"];
         int y = path["y"];
-        string pathType = "paths";
         string pathName = path["path_name"];
-
-        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName, true);
-    }
-    for (auto path: mapData["grid_blocks"]) {
-        int x = path["x"];
-        int y = path["y"];
-
-        string pathType = "grid_blocks";
-        string pathName = path["path_name"];
-        bool blocksPlacement = false;
-        if (pathName == "pond" || pathName == "stone") {
-            blocksPlacement = true;
-        }
-
         map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName, blocksPlacement);
+    };
+
+    for (const auto& path : mapData["paths"]) {
+        initializeGridCell(path, "paths");
     }
 
-    for (auto path: mapData["turn_paths"]) {
-        int x = path["x"];
-        int y = path["y"];
-        string pathType = "paths";
-        string pathName = path["path_name"];
-
-        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName, true);
+    for (const auto& path : mapData["grid_blocks"]) {
+        bool blocksPlacement = (path["path_name"] == "pond" || path["path_name"] == "stone");
+        initializeGridCell(path, "grid_blocks", blocksPlacement);
     }
 
-   for (int i = 0; i < width; ++i) {
+    for (const auto& path : mapData["turn_paths"]) {
+        initializeGridCell(path, "paths");
+    }
+
+    // Fills in the rest of the map with randomzied blocks
+    for (int i = 0; i < width; ++i) {
        for (int j = 0; j < height; ++j) {
            Path* path = map[i][j].getPath();
            if (!path) {
-               std::cout << "empty at " << i << ", " << j << std::endl;
                map[i][j] = GridCell(sf::Vector2u(i, j), "grid_blocks", Path("grid_blocks").getPathName());
            }
        }
-   }
+    }
 
 
     this->map = map;
