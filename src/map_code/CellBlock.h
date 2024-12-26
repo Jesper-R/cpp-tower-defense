@@ -1,24 +1,17 @@
-//
-// Created by Jespe on 2024-12-15.
-//
-
 #ifndef PATH_H
 #define PATH_H
-#include <string>
 
+#include <string>
+using namespace std;
 
 class CellBlock {
-    std::string pathName;
-    std::string pathType;
-
+    string pathName;
+    string pathType;
 public:
-    CellBlock(std::string pathType);
-    CellBlock(std::string pathType, std::string pathName);
-    std::string getPathName();
-    std::string getPathType();
-
+    CellBlock(string pathType);
+    CellBlock(string pathType, std::string pathName);
+    string getPathName();
+    string getPathType();
 };
-
-
 
 #endif //PATH_H

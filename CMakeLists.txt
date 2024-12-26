@@ -29,6 +29,8 @@ add_executable(cpp-tower-defense src/main.cpp
         src/map_code/GameMap.h
         src/map_code/CellBlock.cpp
         src/map_code/CellBlock.h
+        src/WaveManager.cpp
+        src/WaveManager.h
 )
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)
