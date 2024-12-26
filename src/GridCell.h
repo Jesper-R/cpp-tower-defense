@@ -12,6 +12,7 @@ using namespace std;
 
 class GridCell {
     bool containsTower;
+    bool isBlocked;
     Path* path = nullptr;
 
     sf::Vector2u gridPos;
@@ -25,9 +26,11 @@ public:
 
     GridCell();
     GridCell(sf::Vector2u gridPos, string pathType, string pathName);
+    GridCell(sf::Vector2u gridPos, string pathType, string pathName, bool isBlocked);
     bool canPlace();
     void setOccupant();
     void clearOccupant();
+    bool getIsBlocked();
 };
 
 

@@ -23,6 +23,7 @@ public:
 	void loadMapFromFile(std::string filename);
 	void render(sf::RenderWindow &window);
 	std::vector<std::vector<GridCell>> const getMap();
+	void getMapInfo();
 };
 
 

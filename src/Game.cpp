@@ -63,6 +63,7 @@ Game::Game()
     int width = map.getWidth() * GRID_SIZE;
     int height = map.getHeight() * GRID_SIZE;
     this->window.create(sf::VideoMode(width, height), "Pixel Defense");
+    map.getMapInfo();
 
     //map.loadMapFromFile("map.json");
 }

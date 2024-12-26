@@ -36,30 +36,32 @@ void GameMap::loadMapFromFile(std::string filename) {
     for (auto path: mapData["paths"]) {
         int x = path["x"];
         int y = path["y"];
-        y = height - y - 1;
         string pathType = "paths";
         string pathName = path["path_name"];
 
-        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName);
+        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName, true);
     }
     for (auto path: mapData["grid_blocks"]) {
         int x = path["x"];
         int y = path["y"];
-        y = height - y - 1;
+
         string pathType = "grid_blocks";
         string pathName = path["path_name"];
+        bool blocksPlacement = false;
+        if (pathName == "pond" || pathName == "stone") {
+            blocksPlacement = true;
+        }
 
-        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName);
+        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName, blocksPlacement);
     }
 
     for (auto path: mapData["turn_paths"]) {
         int x = path["x"];
         int y = path["y"];
-        y = height - y - 1;
         string pathType = "paths";
         string pathName = path["path_name"];
 
-        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName);
+        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName, true);
     }
 
    for (int i = 0; i < width; ++i) {
@@ -90,7 +92,7 @@ void GameMap::render(sf::RenderWindow &window) {
                 std::cout << "Failed to load texture" << std::endl;
             }
             sf::Sprite sprite;
-            sprite.setPosition(i * 64, j * 64);
+            sprite.setPosition(i * 64, (height - j - 1) * 64);
             sprite.setTexture(texture);
             window.draw(sprite);
         }
@@ -101,6 +103,15 @@ void GameMap::render(sf::RenderWindow &window) {
 
 std::vector<std::vector<GridCell>> const GameMap::getMap() {
     return this->map;
+}
+
+void GameMap::getMapInfo() {
+    for (int i = 0; i < this->width; ++i) {
+        for (int j = 0; j < this->height; ++j) {
+            GridCell* cell = &map[i][j];
+            cout << "GridCell at (" << i << ", " << j << ") with pathType: " << map[i][j].getPathType() << " and pathName: " << map[i][j].getPathName() << " isBlocked: " << cell->getIsBlocked() << endl;
+        }
+    }
 }
 
 int GameMap::getWidth() {
