@@ -52,6 +52,16 @@ void GameMap::loadMapFromFile(std::string filename) {
         map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName);
     }
 
+    for (auto path: mapData["turn_paths"]) {
+        int x = path["x"];
+        int y = path["y"];
+        y = height - y - 1;
+        string pathType = "paths";
+        string pathName = path["path_name"];
+
+        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName);
+    }
+
    for (int i = 0; i < width; ++i) {
        for (int j = 0; j < height; ++j) {
            Path* path = map[i][j].getPath();
