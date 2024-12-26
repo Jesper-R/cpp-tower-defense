@@ -7,13 +7,13 @@
 #include <string>
 
 
-class Path {
+class CellBlock {
     std::string pathName;
     std::string pathType;
 
 public:
-    Path(std::string pathType);
-    Path(std::string pathType, std::string pathName);
+    CellBlock(std::string pathType);
+    CellBlock(std::string pathType, std::string pathName);
     std::string getPathName();
     std::string getPathType();
 

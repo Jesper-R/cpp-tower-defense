@@ -52,9 +52,9 @@ void GameMap::loadMapFromFile(std::string filename) {
     // Fills in the rest of the map with randomzied blocks
     for (int i = 0; i < width; ++i) {
        for (int j = 0; j < height; ++j) {
-           Path* path = map[i][j].getPath();
+           CellBlock* path = map[i][j].getPath();
            if (!path) {
-               map[i][j] = GridCell(sf::Vector2u(i, j), "grid_blocks", Path("grid_blocks").getPathName());
+               map[i][j] = GridCell(sf::Vector2u(i, j), "grid_blocks", CellBlock("grid_blocks").getPathName());
            }
        }
     }
@@ -68,7 +68,7 @@ void GameMap::render(sf::RenderWindow &window) {
     for (int i = 0; i < this->width; ++i) {
         for (int j = 0; j < this->height; ++j) {
             sf::Texture texture;
-            Path* path = map[i][j].getPath();
+            CellBlock* path = map[i][j].getPath();
             string documentPath = "0";
             if(path) {
                 documentPath = "../src/assets/" + path->getPathType() + "/" + path->getPathName() + ".png";

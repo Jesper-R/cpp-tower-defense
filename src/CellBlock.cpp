@@ -2,7 +2,7 @@
 // Created by Jespe on 2024-12-15.
 //
 
-#include "Path.h"
+#include "CellBlock.h"
 #include <random>
 #include <vector>
 #include <iostream>
@@ -21,7 +21,7 @@ std::vector<PathOption> options = {
     {700, "grass"}
 };
 
-Path::Path(std::string pathType) {
+CellBlock::CellBlock(std::string pathType) {
     std::cout << "Path constructor" << std::endl;
     this->pathType = pathType;
 
@@ -46,15 +46,15 @@ Path::Path(std::string pathType) {
 
 }
 
-Path::Path(std::string pathType, std::string pathName) {
+CellBlock::CellBlock(std::string pathType, std::string pathName) {
     this->pathType = pathType;
     this->pathName = pathName;
 }
 
-std::string Path::getPathName() {
+std::string CellBlock::getPathName() {
     return this->pathName;
 }
 
-std::string Path::getPathType() {
+std::string CellBlock::getPathType() {
     return this->pathType;
 }

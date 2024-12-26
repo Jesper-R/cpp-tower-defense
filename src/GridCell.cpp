@@ -3,7 +3,7 @@
 //
 
 #include "GridCell.h"
-#include "path.h"
+#include "CellBlock.h"
 #include <string>
 
 using namespace std;
@@ -12,12 +12,12 @@ GridCell::GridCell() {
 }
 
 GridCell::GridCell(sf::Vector2u gridPos, string pathType, string pathName) {
-	this->path = new Path(pathType, pathName);
+	this->path = new CellBlock(pathType, pathName);
 	this->gridPos = gridPos;
 }
 
 GridCell::GridCell(sf::Vector2u gridPos, string pathType, string pathName, bool isBlocked) {
-	this->path = new Path(pathType, pathName);
+	this->path = new CellBlock(pathType, pathName);
 	this->gridPos = gridPos;
 	this->isBlocked = isBlocked;
 }
@@ -43,6 +43,6 @@ string GridCell::getPathName() {
 	return this->path->getPathName();
 }
 
-Path * GridCell::getPath() {
+CellBlock * GridCell::getPath() {
 	return this->path;
 }

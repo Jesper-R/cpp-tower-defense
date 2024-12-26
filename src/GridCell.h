@@ -6,14 +6,14 @@
 #define GRIDCELL_H
 
 #include <SFML/System/Vector2.hpp>
-#include "path.h"
+#include "CellBlock.h"
 #include <string>
 using namespace std;
 
 class GridCell {
     bool containsTower;
     bool isBlocked;
-    Path* path = nullptr;
+    CellBlock* path = nullptr;
 
     sf::Vector2u gridPos;
     //occupant
@@ -22,7 +22,7 @@ public:
     string getPathType();
     string getPathName();
 
-    Path * getPath();
+    CellBlock * getPath();
 
     GridCell();
     GridCell(sf::Vector2u gridPos, string pathType, string pathName);

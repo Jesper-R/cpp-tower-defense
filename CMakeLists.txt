@@ -27,10 +27,8 @@ add_executable(cpp-tower-defense src/main.cpp
         src/GridCell.h
         src/GameMap.cpp
         src/GameMap.h
-        src/Path.cpp
-        src/Path.h
-        src/Block.cpp
-        src/Block.h
+        src/CellBlock.cpp
+        src/CellBlock.h
 )
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)
