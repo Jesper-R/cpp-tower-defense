@@ -12,9 +12,6 @@ GameMap::GameMap() {
 
 }
 
-GridCell * GameMap::getGridCell(int x, int y) {
-}
-
 void GameMap::loadMapFromFile(std::string filename) {
     cout << "starting to load from file" << endl;
     ifstream file("../src/" + filename);
@@ -27,6 +24,10 @@ void GameMap::loadMapFromFile(std::string filename) {
 
     this->width = mapData["width"];
     this->height = mapData["height"];
+    this->startGridLoc = sf::Vector2i(mapData["start"]["x"], mapData["start"]["y"]);
+    this->endGridLoc = sf::Vector2i(mapData["end"]["x"], mapData["end"]["y"]);
+    this->startingMoney = mapData["starting_money"];
+    this->startingLives = mapData["starting_lives"];
     vector map(width, vector<GridCell>(height));
 
     auto initializeGridCell = [&](const json& path, const string& pathType, bool blocksPlacement = true) {
@@ -47,7 +48,14 @@ void GameMap::loadMapFromFile(std::string filename) {
 
     for (const auto& path : mapData["turn_paths"]) {
         initializeGridCell(path, "paths");
+        int index = path["index"];
+        sf::Vector2i position(path["x"], path["y"]);
+        turnGridLocs.push_back({index, position});
     }
+
+    std::sort(turnGridLocs.begin(), turnGridLocs.end(), [](const auto& a, const auto& b) {
+        return a.first < b.first;
+    });
 
     // Fills in the rest of the map with randomzied blocks
     for (int i = 0; i < width; ++i) {
@@ -59,9 +67,8 @@ void GameMap::loadMapFromFile(std::string filename) {
        }
     }
 
-
     this->map = map;
-    cout << "finished loading from file" << endl;
+    cout << "finished loading map from file" << endl;
 }
 
 void GameMap::render(sf::RenderWindow &window) {
@@ -69,10 +76,6 @@ void GameMap::render(sf::RenderWindow &window) {
         for (int j = 0; j < this->height; ++j) {
             sf::Texture texture;
             CellBlock* path = map[i][j].getPath();
-            string documentPath = "0";
-            if(path) {
-                documentPath = "../src/assets/" + path->getPathType() + "/" + path->getPathName() + ".png";
-            }
             if (path && !texture.loadFromFile("../src/assets/" + path->getPathType() + "/" + path->getPathName() + ".png")) {
                 std::cout << "Failed to load texture" << std::endl;
             }
@@ -84,12 +87,6 @@ void GameMap::render(sf::RenderWindow &window) {
     }
 }
 
-
-
-std::vector<std::vector<GridCell>> const GameMap::getMap() {
-    return this->map;
-}
-
 void GameMap::getMapInfo() {
     for (int i = 0; i < this->width; ++i) {
         for (int j = 0; j < this->height; ++j) {
@@ -99,10 +96,18 @@ void GameMap::getMapInfo() {
     }
 }
 
-int GameMap::getWidth() {
+int GameMap::getStartingMoney() {
+    return startingMoney;
+}
+
+int GameMap::getStartingLives() {
+    return startingLives;
+}
+
+int GameMap::getGridWidth() {
     return width;
 }
 
-int GameMap::getHeight() {
+int GameMap::getGridHeight() {
     return height;
 }

@@ -11,6 +11,7 @@ class GridCell {
     bool isBlocked;
     bool isPath;
     bool isTurn;
+
     CellBlock* path = nullptr;
     sf::Vector2u gridPos;
 public:

@@ -47,10 +47,8 @@ void Game::render()
         this->window.draw(sprite);
     }*/
 
-    map.render(this->window);
-
-
-
+    gameMap.render(this->window);
+    renderUI();
     this->window.display();
 }
 
@@ -59,13 +57,26 @@ Game::Game()
       timePerFrame(sf::seconds(1.f / 60.f)),
       elapsedTimeSinceLastUpdate(sf::Time::Zero)
 {
-    map.loadMapFromFile("../src/map.json");
-    int width = map.getWidth() * GRID_SIZE;
-    int height = map.getHeight() * GRID_SIZE;
+    gameMap.loadMapFromFile("../src/map.json");
+    int width = gameMap.getGridWidth() * GRID_SIZE;
+    int height = gameMap.getGridHeight() * GRID_SIZE;
     this->window.create(sf::VideoMode(width, height), "Pixel Defense");
-    map.getMapInfo();
+    //gameMap.getMapInfo();
+    player.setLives(gameMap.getStartingLives());
+    player.setMoney(gameMap.getStartingMoney());
+    if (!font.loadFromFile("../src/assets/ByteBounce.ttf"))
+    {
+        std::cout << "Failed to load font" << std::endl;
+    }
+    livesText.setFont(font);
+    livesText.setCharacterSize(24);
+    livesText.setFillColor(sf::Color::White);
+    livesText.setPosition(10, 10);
 
-    //map.loadMapFromFile("map.json");
+    moneyText.setFont(font);
+    moneyText.setCharacterSize(24);
+    moneyText.setFillColor(sf::Color::White);
+    moneyText.setPosition(width - 150, 10);
 }
 
 Game::~Game()
@@ -82,4 +93,12 @@ void Game::run()
         update();
         render();
     }
+}
+
+void Game::renderUI() {
+    livesText.setString("Lives: " + std::to_string(player.getLives()));
+    moneyText.setString("Money: " + std::to_string(player.getMoney()));
+
+    this->window.draw(livesText);
+    this->window.draw(moneyText);
 }

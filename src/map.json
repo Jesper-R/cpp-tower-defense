@@ -1,6 +1,8 @@
 {
     "width": 20,
     "height": 11,
+    "starting_lives": 100,
+    "starting_money": 200,
     "grid_blocks": [
         { "x": 4, "y": 6, "path_name": "pond"},
         { "x": 1, "y": 3, "path_name": "stone"}
@@ -38,14 +40,16 @@
     ],
     "turn_paths": [
         { "x": 2, "y": 2, "path_name": "1010", "index": 1 },
+        { "x": 6, "y": 4, "path_name": "1001", "index": 4 },
         { "x": 2, "y": 8, "path_name": "0101", "index": 2 },
         { "x": 6, "y": 8, "path_name": "0110", "index": 3 },
-        { "x": 6, "y": 4, "path_name": "1001", "index": 4 },
         { "x": 9, "y": 4, "path_name": "1010", "index": 5 },
         { "x": 9, "y": 6, "path_name": "0101", "index": 6 },
         { "x": 12, "y": 6, "path_name": "0110", "index": 7 },
         { "x": 12, "y": 2, "path_name": "1001", "index": 8 },
         { "x": 17, "y": 2, "path_name": "1010", "index": 9 },
         { "x": 17, "y": 5, "path_name": "0101", "index": 10 }
-    ]
+    ],
+    "start": { "x": 0, "y": 2 },
+    "end": { "x": 19, "y": 5 }
 }

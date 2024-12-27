@@ -43,7 +43,6 @@ CellBlock::CellBlock(std::string pathType) {
             break;
         }
     }
-
 }
 
 CellBlock::CellBlock(std::string pathType, std::string pathName) {
