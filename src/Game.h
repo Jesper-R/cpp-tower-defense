@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "WaveManager.h"
 #include "map_code/GameMap.h"
+#include "UIManager.h"
 
 class Game
 {
@@ -15,15 +16,14 @@ private:
     static const int GRID_HEIGHT = HEIGHT / GRID_SIZE;
     GameMap gameMap;
     WaveManager waveManager;
+    UIManager uiManager;
     Player player;
 private:
     sf::RenderWindow window;
     sf::Clock clock;
     sf::Time timePerFrame;
     sf::Time elapsedTimeSinceLastUpdate;
-    sf::Font font;
-    sf::Text livesText;
-    sf::Text moneyText;
+
 
     void handleEvents();
     void update();

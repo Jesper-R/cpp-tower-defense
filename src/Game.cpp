@@ -48,7 +48,7 @@ void Game::render()
     }*/
 
     gameMap.render(this->window);
-    renderUI();
+    uiManager.renderUI(this->window, player);
     this->window.display();
 }
 
@@ -64,19 +64,9 @@ Game::Game()
     //gameMap.getMapInfo();
     player.setLives(gameMap.getStartingLives());
     player.setMoney(gameMap.getStartingMoney());
-    if (!font.loadFromFile("../src/assets/ByteBounce.ttf"))
-    {
-        std::cout << "Failed to load font" << std::endl;
-    }
-    livesText.setFont(font);
-    livesText.setCharacterSize(24);
-    livesText.setFillColor(sf::Color::White);
-    livesText.setPosition(10, 10);
+    uiManager.initUI();
 
-    moneyText.setFont(font);
-    moneyText.setCharacterSize(24);
-    moneyText.setFillColor(sf::Color::White);
-    moneyText.setPosition(width - 150, 10);
+
 }
 
 Game::~Game()
@@ -96,9 +86,5 @@ void Game::run()
 }
 
 void Game::renderUI() {
-    livesText.setString("Lives: " + std::to_string(player.getLives()));
-    moneyText.setString("Money: " + std::to_string(player.getMoney()));
 
-    this->window.draw(livesText);
-    this->window.draw(moneyText);
 }

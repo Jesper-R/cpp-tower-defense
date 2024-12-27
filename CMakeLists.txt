@@ -33,6 +33,8 @@ add_executable(cpp-tower-defense src/main.cpp
         src/WaveManager.h
         src/Player.cpp
         src/Player.h
+        src/UIManager.cpp
+        src/UIManager.h
 )
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)
