@@ -29,12 +29,20 @@ add_executable(cpp-tower-defense src/main.cpp
         src/map_code/GameMap.h
         src/map_code/CellBlock.cpp
         src/map_code/CellBlock.h
-        src/WaveManager.cpp
-        src/WaveManager.h
+        src/wave_code/WaveManager.cpp
+        src/wave_code/WaveManager.h
         src/Player.cpp
         src/Player.h
         src/UIManager.cpp
         src/UIManager.h
+        src/enemy_code/Enemy.cpp
+        src/enemy_code/Enemy.h
+        src/enemy_code/BigEnemy.cpp
+        src/enemy_code/BigEnemy.h
+        src/enemy_code/BasicEnemy.cpp
+        src/enemy_code/BasicEnemy.h
+        src/GameObject.cpp
+        src/GameObject.h
 )
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)

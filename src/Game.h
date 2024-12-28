@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Player.h"
-#include "WaveManager.h"
+#include "wave_code/WaveManager.h"
 #include "map_code/GameMap.h"
 #include "UIManager.h"
 
