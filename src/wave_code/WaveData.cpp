@@ -5,10 +5,17 @@
 using json = nlohmann::json;
 
 WaveData::WaveData() {
-    loadWaveData();
+    //loadGroupData();
 }
 
-void WaveData::loadWaveData() {
+WaveData::WaveData(int waveNumber, int nexWaveDelay) {
+    this->waveNumber = waveNumber;
+    this->nextWaveDelay = nexWaveDelay;
+    loadGroupData(waveNumber);
+}
+
+
+void WaveData::loadGroupData(int waveNumber) {
     ifstream file("../src/map.json");
 
     if (!file.is_open())
@@ -17,15 +24,15 @@ void WaveData::loadWaveData() {
     json mapData;
     file >> mapData;
 
-    auto wave = mapData["waves"][waveNumber];
+    auto wave = mapData["waves"][waveNumber-1];
     nextWaveDelay = wave["next_wave_delay_ms"];
 
     EnemyGroup group;
-    group.nextGroupDelay = wave["next_wave_delay_ms"];
+    group.nextGroupDelay = wave["next_group_delay_ms"];
     group.spawnDelay = wave["spawn_delay_ms"];
 
     for (const auto& enemies : wave["enemies"]) {
-        group.enemyType = enemies["enemy_type"];
+        group.enemyType = enemies["type"];
         group.count = enemies["count"];
         waveComposition.push_back(group);
     }

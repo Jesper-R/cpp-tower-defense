@@ -65,7 +65,7 @@ Game::Game()
     player.setLives(gameMap.getStartingLives());
     player.setMoney(gameMap.getStartingMoney());
     uiManager.initUI();
-
+    waveManager.loadWaveData();
 
 }
 

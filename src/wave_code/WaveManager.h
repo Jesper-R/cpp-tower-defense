@@ -7,11 +7,19 @@
 
 #include <vector>
 #include "WaveData.h"
+#include "../enemy_code/Enemy.h"
 using namespace std;
 
 class WaveManager {
+    int currentWave;
     vector<WaveData> waves;
+    vector<Enemy*> enemies;
+public:
+    WaveManager();
 
+    void startWaveSpawning();
+    bool isWaveDefeated();
+    void loadWaveData();
 };
 
 

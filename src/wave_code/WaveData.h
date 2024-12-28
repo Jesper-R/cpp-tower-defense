@@ -23,7 +23,8 @@ class WaveData {
     vector<EnemyGroup> waveComposition;
 public:
     WaveData();
-    void loadWaveData();
+    WaveData(int waveNumber, int nexWaveDelay);
+    void loadGroupData(int waveNumber);
 };
 
 
