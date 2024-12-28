@@ -43,6 +43,8 @@ add_executable(cpp-tower-defense src/main.cpp
         src/enemy_code/BasicEnemy.h
         src/GameObject.cpp
         src/GameObject.h
+        src/wave_code/WaveData.cpp
+        src/wave_code/WaveData.h
 )
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)

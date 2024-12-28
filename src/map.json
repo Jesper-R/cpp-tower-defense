@@ -51,5 +51,15 @@
         { "x": 17, "y": 5, "path_name": "0101", "index": 10 }
     ],
     "start": { "x": 0, "y": 2 },
-    "end": { "x": 19, "y": 5 }
+    "end": { "x": 19, "y": 5 },
+    "waves": [
+        { "wave_nr": 1, "spawn_delay_ms": 500, "next_group_delay_ms": 1000, "next_wave_delay_ms": 2000, "enemies": [
+            { "type": "basic", "count": 5 },
+            { "type": "big", "count": 1 }
+        ]},
+        { "wave_nr": 2, "spawn_delay_ms": 500, "next_group_delay_ms": 1000, "next_wave_delay_ms": 2000, "enemies": [
+            { "type": "basic", "count": 1 },
+            { "type": "big", "count": 1 }
+        ]}
+    ]
 }

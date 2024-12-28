@@ -5,9 +5,12 @@
 #ifndef WAVEMANAGER_H
 #define WAVEMANAGER_H
 
-
+#include <vector>
+#include "WaveData.h"
+using namespace std;
 
 class WaveManager {
+    vector<WaveData> waves;
 
 };
 
