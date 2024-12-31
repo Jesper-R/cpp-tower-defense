@@ -24,9 +24,11 @@ void Player::setMoney(int money) {
 }
 
 void Player::addMoney(int money) {
+    this->money += money;
 }
 
 void Player::removeMoney(int money) {
+    this->money -= money;
 }
 
 void Player::removeLife() {

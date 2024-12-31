@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Player.h"
+#include "TowerManager.h"
 #include "wave_code/WaveManager.h"
 #include "map_code/GameMap.h"
 #include "UIManager.h"
@@ -18,6 +19,7 @@ private:
     WaveManager waveManager;
     UIManager uiManager;
     Player player;
+    TowerManager towerManager;
 private:
     sf::RenderWindow window;
     sf::Clock clock;

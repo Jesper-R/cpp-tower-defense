@@ -20,6 +20,11 @@ void UIManager::renderUI(sf::RenderWindow &window, Player &player) {
     window.draw(moneyText);
 }
 
+void UIManager::updateUI(Player *player) {
+    livesText.setString(std::to_string(player->getLives()));
+    moneyText.setString(std::to_string(player->getMoney()));
+}
+
 void UIManager::initUI() {
     if (!font.loadFromFile("../src/assets/ByteBounce.ttf"))
     {

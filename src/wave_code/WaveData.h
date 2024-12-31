@@ -19,12 +19,14 @@ struct EnemyGroup {
 class WaveData {
     int nextWaveDelay;
     int waveNumber;
-    int enemyCount;
+    int enemiesLeft = 0;
     vector<EnemyGroup> waveComposition;
 public:
     WaveData();
     WaveData(int waveNumber, int nexWaveDelay);
     void loadGroupData(int waveNumber);
+    int getEnemiesLeft() const { return enemiesLeft; }
+    vector<EnemyGroup> getWaveComposition() const { return waveComposition; }
 };
 
 

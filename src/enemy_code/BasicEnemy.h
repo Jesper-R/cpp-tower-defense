@@ -8,10 +8,12 @@
 
 
 class BasicEnemy : public Enemy {
-    int armor;
+    int currentTargetIndex = 0;
 public:
     BasicEnemy();
     void move() override;
+    void update(float deltaTome) override;
+    void render(sf::RenderWindow& window) override;
 };
 
 

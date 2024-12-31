@@ -18,6 +18,10 @@ public:
     void update();
     void render();
     void setTexture(const std::string& textureFile);
+    sf::Sprite getSprite() const;
+    sf::Texture getTexture() const;
+    sf::Vector2f getPosition() const;
+    void setPosition(const sf::Vector2f& position);
 };
 
 

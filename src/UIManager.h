@@ -16,6 +16,7 @@ class UIManager {
 public:
     UIManager();
     void renderUI(sf::RenderWindow &window, Player &player);
+    void updateUI(Player* player);
     void initUI();
     void renderLives();
     void renderMoney();

@@ -48,16 +48,17 @@ void GameMap::loadMapFromFile(std::string filename) {
 
     for (const auto& path : mapData["turn_paths"]) {
         initializeGridCell(path, "paths");
-        int index = path["index"];
+        //int index = path["index"];
+
         sf::Vector2i position(path["x"], path["y"]);
-        turnGridLocs.push_back({index, position});
+        turnGridLocs.push_back(position);
+        //turnGridLocs.push_back({index, position});
     }
 
-    std::sort(turnGridLocs.begin(), turnGridLocs.end(), [](const auto& a, const auto& b) {
+    /*std::sort(turnGridLocs.begin(), turnGridLocs.end(), [](const auto& a, const auto& b) {
         return a.first < b.first;
-    });
+    });*/
 
-    // Fills in the rest of the map with randomzied blocks
     for (int i = 0; i < width; ++i) {
        for (int j = 0; j < height; ++j) {
            CellBlock* path = map[i][j].getPath();
@@ -102,6 +103,26 @@ int GameMap::getStartingMoney() {
 
 int GameMap::getStartingLives() {
     return startingLives;
+}
+
+sf::Vector2i GameMap::getStartGridLoc() {
+    return this->startGridLoc;
+}
+
+sf::Vector2i GameMap::getEndGridLoc() {
+    return this->endGridLoc;
+}
+
+sf::Vector2i GameMap::gridToPixel(sf::Vector2i gridLoc) {
+    return sf::Vector2i(gridLoc.x * 64, 704 - 64 - (64 * gridLoc.y));
+}
+
+sf::Vector2i GameMap::pixelToGrid(sf::Vector2i pixelLoc) {
+    return sf::Vector2i(pixelLoc.x / 64, (704 - pixelLoc.y) / 64);
+}
+
+vector<sf::Vector2i> GameMap::getTurnGridLocs() {
+    return this->turnGridLocs;
 }
 
 int GameMap::getGridWidth() {

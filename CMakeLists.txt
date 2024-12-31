@@ -45,6 +45,12 @@ add_executable(cpp-tower-defense src/main.cpp
         src/GameObject.h
         src/wave_code/WaveData.cpp
         src/wave_code/WaveData.h
+        src/TowerManager.cpp
+        src/TowerManager.h
+        src/tower_code/Tower.cpp
+        src/tower_code/Tower.h
+        src/tower_code/StoneThrower.cpp
+        src/tower_code/StoneThrower.h
 )
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)

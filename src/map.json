@@ -40,9 +40,9 @@
     ],
     "turn_paths": [
         { "x": 2, "y": 2, "path_name": "1010", "index": 1 },
-        { "x": 6, "y": 4, "path_name": "1001", "index": 4 },
         { "x": 2, "y": 8, "path_name": "0101", "index": 2 },
         { "x": 6, "y": 8, "path_name": "0110", "index": 3 },
+        { "x": 6, "y": 4, "path_name": "1001", "index": 4 },
         { "x": 9, "y": 4, "path_name": "1010", "index": 5 },
         { "x": 9, "y": 6, "path_name": "0101", "index": 6 },
         { "x": 12, "y": 6, "path_name": "0110", "index": 7 },
@@ -53,13 +53,14 @@
     "start": { "x": 0, "y": 2 },
     "end": { "x": 19, "y": 5 },
     "waves": [
-        { "wave_nr": 1, "spawn_delay_ms": 500, "next_group_delay_ms": 1000, "next_wave_delay_ms": 2000, "enemies": [
+        { "wave_nr": 1, "spawn_delay_ms": 1500, "next_group_delay_ms": 2000, "next_wave_delay_ms": 2000, "enemies": [
             { "type": "basic", "count": 5 },
-            { "type": "big", "count": 1 }
+            { "type": "big", "count": 1 },
+            { "type": "basic", "count": 4 }
         ]},
         { "wave_nr": 2, "spawn_delay_ms": 500, "next_group_delay_ms": 1000, "next_wave_delay_ms": 2000, "enemies": [
             { "type": "basic", "count": 1 },
-            { "type": "big", "count": 1 }
+            { "type": "basic", "count": 1 }
         ]}
     ]
 }

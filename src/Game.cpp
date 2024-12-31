@@ -14,6 +14,16 @@ void Game::handleEvents()
         {
             this->window.close();
         }
+
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)
+        {
+            std::cout << "Pressed key 1" << std::endl;
+            sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
+            cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
+            //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
+            towerManager.placeTower(gridLoc, "basic", &gameMap, &player);
+
+        }
     }
 }
 
@@ -27,6 +37,10 @@ void Game::update()
         elapsedTimeSinceLastUpdate -= timePerFrame;
         //std::cout << "Updated elapsedTimeSinceLastUpdate: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
     }
+
+    waveManager.update();
+    uiManager.updateUI(&player);
+
 }
 
 void Game::render()
@@ -49,6 +63,8 @@ void Game::render()
 
     gameMap.render(this->window);
     uiManager.renderUI(this->window, player);
+    waveManager.render(this->window);
+    towerManager.render(this->window);
     this->window.display();
 }
 
@@ -58,14 +74,17 @@ Game::Game()
       elapsedTimeSinceLastUpdate(sf::Time::Zero)
 {
     gameMap.loadMapFromFile("../src/map.json");
+
     int width = gameMap.getGridWidth() * GRID_SIZE;
     int height = gameMap.getGridHeight() * GRID_SIZE;
     this->window.create(sf::VideoMode(width, height), "Pixel Defense");
-    //gameMap.getMapInfo();
+
     player.setLives(gameMap.getStartingLives());
     player.setMoney(gameMap.getStartingMoney());
+
     uiManager.initUI();
-    waveManager.loadWaveData();
+    waveManager.setGameMap(gameMap);
+    waveManager.startWaveSpawning();
 
 }
 

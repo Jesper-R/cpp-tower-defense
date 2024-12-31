@@ -11,7 +11,7 @@ class GameMap {
 	vector<vector<GridCell>> map;
 	sf::Vector2i startGridLoc;
 	sf::Vector2i endGridLoc;
-	vector<pair<int, sf::Vector2i>> turnGridLocs;
+	vector<sf::Vector2i> turnGridLocs;
 	int width, height;
 	int startingMoney, startingLives;
 public:
@@ -24,6 +24,11 @@ public:
 
 	int getStartingMoney();
 	int getStartingLives();
+	sf::Vector2i getStartGridLoc();
+	sf::Vector2i getEndGridLoc();
+	vector<sf::Vector2i> getTurnGridLocs();
+	sf::Vector2i gridToPixel(sf::Vector2i gridLoc);
+	sf::Vector2i pixelToGrid(sf::Vector2i pixelLoc);
 	//GridCell* getGridCell(int x, int y);
 	//std::vector<std::vector<GridCell>> const getMap();
 };

@@ -19,3 +19,19 @@ void GameObject::update() {
 
 void GameObject::render() {
 }
+
+void GameObject::setTexture(const std::string &textureFile) {
+}
+
+sf::Sprite GameObject::getSprite() const {
+    return this->sprite;
+}
+
+sf::Texture GameObject::getTexture() const {
+}
+
+sf::Vector2f GameObject::getPosition() const {
+}
+
+void GameObject::setPosition(const sf::Vector2f &position) {
+}
