@@ -21,7 +21,8 @@ public:
 	void loadMapFromFile(std::string filename);
 	void render(sf::RenderWindow &window);
 	void getMapInfo();
-
+	bool isBlocked(sf::Vector2i gridLoc);
+	void update();
 	int getStartingMoney();
 	int getStartingLives();
 	sf::Vector2i getStartGridLoc();

@@ -30,10 +30,14 @@ void GameMap::loadMapFromFile(std::string filename) {
     this->startingLives = mapData["starting_lives"];
     vector map(width, vector<GridCell>(height));
 
-    auto initializeGridCell = [&](const json& path, const string& pathType, bool blocksPlacement = true) {
+    auto initializeGridCell = [&](const json& path, const string& pathType, bool blocksPlacement = false)
+    {
         int x = path["x"];
         int y = path["y"];
         string pathName = path["path_name"];
+        if (pathName == "pond" || pathName == "stone") {
+            blocksPlacement = true;
+        }
         map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName, blocksPlacement);
     };
 
@@ -42,8 +46,7 @@ void GameMap::loadMapFromFile(std::string filename) {
     }
 
     for (const auto& path : mapData["grid_blocks"]) {
-        bool blocksPlacement = (path["path_name"] == "pond" || path["path_name"] == "stone");
-        initializeGridCell(path, "grid_blocks", blocksPlacement);
+        initializeGridCell(path, "grid_blocks");
     }
 
     for (const auto& path : mapData["turn_paths"]) {
@@ -63,7 +66,9 @@ void GameMap::loadMapFromFile(std::string filename) {
        for (int j = 0; j < height; ++j) {
            CellBlock* path = map[i][j].getPath();
            if (!path) {
-               map[i][j] = GridCell(sf::Vector2u(i, j), "grid_blocks", CellBlock("grid_blocks").getPathName());
+               bool blocksPlacement = false;
+
+               map[i][j] = GridCell(sf::Vector2u(i, j), "grid_blocks", CellBlock("grid_blocks").getPathName(), blocksPlacement);
            }
        }
     }
@@ -93,6 +98,24 @@ void GameMap::getMapInfo() {
         for (int j = 0; j < this->height; ++j) {
             GridCell* cell = &map[i][j];
             cout << "GridCell at (" << i << ", " << j << ") with pathType: " << map[i][j].getPathType() << " and pathName: " << map[i][j].getPathName() << " isBlocked: " << cell->getIsBlocked() << endl;
+        }
+    }
+}
+
+bool GameMap::isBlocked(sf::Vector2i gridLoc) {
+    return map[gridLoc.x][gridLoc.y].getIsBlocked();
+}
+
+void GameMap::update() {
+    //loop through all grid cells and update them
+
+    for (int i = 0; i < this->width; ++i) {
+        for (int j = 0; j < this->height; ++j) {
+            string pathName = map[i][j].getPathName();
+            string pathType = map[i][j].getPathType();
+            if (pathName == "pond" || pathName == "stone" || pathType == "paths" || pathType == "turn_paths") {
+                map[i][j].setIsBlocked(true);
+            }
         }
     }
 }

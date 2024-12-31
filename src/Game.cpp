@@ -22,7 +22,14 @@ void Game::handleEvents()
             cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
             //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
             towerManager.placeTower(gridLoc, "basic", &gameMap, &player);
+        }
 
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2) {
+            std::cout << "Pressed key 2" << std::endl;
+            sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
+            cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
+            //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
+            towerManager.placeTower(gridLoc, "wizard", &gameMap, &player);
         }
     }
 }
@@ -39,6 +46,7 @@ void Game::update()
     }
 
     waveManager.update();
+    gameMap.update();
     uiManager.updateUI(&player);
 
 }

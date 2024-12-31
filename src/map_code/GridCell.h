@@ -22,6 +22,7 @@ public:
     GridCell(sf::Vector2u gridPos, string pathType, string pathName);
     GridCell(sf::Vector2u gridPos, string pathType, string pathName, bool isBlocked);
     bool canPlace();
+    void setIsBlocked(bool isBlocked);
     void setOccupant();
     void clearOccupant();
     bool getIsBlocked();
