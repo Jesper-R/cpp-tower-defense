@@ -9,8 +9,9 @@
 
 class StoneThrower : public Tower {
   public:
-    StoneThrower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player);
+    StoneThrower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, ProjectileManager* projectileManager);
     void attack() override;
+    void update();
     void render(sf::RenderWindow& window) override;
 };
 

@@ -27,7 +27,7 @@ void WaveManager::spawnWave(WaveData wave) {
                     //enemy->setPath(map.getStartGridLoc(), map.getEndGridLoc()); // add turn locs here later for pathfinding
                     enemy->setPath(&map);
                     enemy->setCurrentPos(map.gridToPixel(map.getStartGridLoc()));
-                    cout << "Spawned enemy" << endl;
+                    //cout << "Spawned enemy" << endl;
                 }
                 this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
             }

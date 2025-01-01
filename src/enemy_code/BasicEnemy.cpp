@@ -35,7 +35,6 @@ void BasicEnemy::update(float deltaTime) {
     currentPos.x += 1 * getSpeed();
     this->setPos(sf::Vector2f(currentPos));*/
     move();
-
 }
 
 void BasicEnemy::render(sf::RenderWindow& window) {

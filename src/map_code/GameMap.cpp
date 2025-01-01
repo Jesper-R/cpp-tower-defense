@@ -97,7 +97,7 @@ void GameMap::getMapInfo() {
     for (int i = 0; i < this->width; ++i) {
         for (int j = 0; j < this->height; ++j) {
             GridCell* cell = &map[i][j];
-            cout << "GridCell at (" << i << ", " << j << ") with pathType: " << map[i][j].getPathType() << " and pathName: " << map[i][j].getPathName() << " isBlocked: " << cell->getIsBlocked() << endl;
+            //cout << "GridCell at (" << i << ", " << j << ") with pathType: " << map[i][j].getPathType() << " and pathName: " << map[i][j].getPathName() << " isBlocked: " << cell->getIsBlocked() << endl;
         }
     }
 }

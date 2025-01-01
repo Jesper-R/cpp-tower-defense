@@ -41,7 +41,7 @@ void BigEnemy::update(float deltaTome) {
     //deltaTime = clock.getElapsedTime().asSeconds();
     deltaTime = deltaTome;
     //Enemy::update(deltaTome); look into eventual virtual here
-    std::cout << "BigEnemy update: current deltaTime " + to_string(clock.getElapsedTime().asSeconds()) << std::endl;
+    //std::cout << "BigEnemy update: current deltaTime " + to_string(clock.getElapsedTime().asSeconds()) << std::endl;
     //moveTimer += deltaTome;
     if (isMoving) {
         moveTimer += deltaTime;

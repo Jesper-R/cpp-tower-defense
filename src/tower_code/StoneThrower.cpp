@@ -4,11 +4,20 @@
 
 #include "StoneThrower.h"
 
-StoneThrower::StoneThrower(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player* player): Tower(range, damage, attackSpeed, cost, textureFile, player) {
+#include <iostream>
+
+StoneThrower::StoneThrower(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player* player, ProjectileManager* projectileManager): Tower(range, damage, attackSpeed, cost, textureFile, player) {
+    setProjectileManager(projectileManager);
 }
 
 void StoneThrower::attack() {
-    Tower::attack();
+    //Tower::attack();
+    std::cout << "StoneThrower attack" << std::endl;
+    //cout << "Tower pos, " << getPosition().x << getPosition().y << endl;
+    getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), sf::Vector2i(200, 200), 10, 10, "../src/assets/projectiles/stone.png");
+}
+
+void StoneThrower::update() {
 }
 
 void StoneThrower::render(sf::RenderWindow &window) {

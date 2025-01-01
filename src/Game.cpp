@@ -19,7 +19,7 @@ void Game::handleEvents()
         {
             std::cout << "Pressed key 1" << std::endl;
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
-            cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
+            //cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
             //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
             towerManager.placeTower(gridLoc, "basic", &gameMap, &player);
         }
@@ -27,7 +27,7 @@ void Game::handleEvents()
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2) {
             std::cout << "Pressed key 2" << std::endl;
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
-            cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
+            //cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
             //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
             towerManager.placeTower(gridLoc, "wizard", &gameMap, &player);
         }
@@ -44,11 +44,10 @@ void Game::update()
         elapsedTimeSinceLastUpdate -= timePerFrame;
         //std::cout << "Updated elapsedTimeSinceLastUpdate: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
     }
-
     waveManager.update();
     gameMap.update();
     uiManager.updateUI(&player);
-
+    towerManager.update();
 }
 
 void Game::render()
