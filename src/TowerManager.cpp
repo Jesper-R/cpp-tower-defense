@@ -46,7 +46,7 @@ void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap* g
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new Wizard(100, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", player, &projectileManager, waveManager);
+        tower = new Wizard(150, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", player, &projectileManager, waveManager);
     }
 
     tower->setTowerPos(pixelLoc);

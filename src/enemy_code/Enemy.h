@@ -17,13 +17,16 @@ class Enemy : public GameObject {
     float health;
     float speed;
     int value;
+    int damage;
     sf::Vector2i startPos;
     sf::Vector2i currentPos;
     vector<sf::Vector2i> turnLocs;
     vector<sf::Vector2i> pathFindingData;
     sf::Vector2i endPos;
+    bool dead = false;
+    bool reachedEnd = false;
 public:
-    Enemy(float health, float speed, int value, const std::string& textureFile);
+    Enemy(float health, float speed, int value, const std::string& textureFile, int damage);
     void takeDamage(float damage);
     void die();
     virtual void update(float deltaTime);
@@ -38,6 +41,11 @@ public:
     sf::Vector2i getEndPos() const { return endPos; }
     void setCurrentPos(sf::Vector2i pos) { currentPos = pos; setPosition(sf::Vector2f(pos)); }
     float getSpeed() const { return speed; }
+    bool isDead() const { return dead; }
+    bool hasReachedEnd() const { return reachedEnd; }
+    void setReachedEnd(bool reachedEnd) { this->reachedEnd = reachedEnd; }
+    int getDamage() const { return damage; }
+    int getValue() const { return value; }
 };
 
 

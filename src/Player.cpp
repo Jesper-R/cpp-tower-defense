@@ -31,7 +31,8 @@ void Player::removeMoney(int money) {
     this->money -= money;
 }
 
-void Player::removeLife() {
+void Player::removeLife(int life) {
+    this->lives -= life;
 }
 
 void Player::addLife() {

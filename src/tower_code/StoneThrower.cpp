@@ -28,7 +28,7 @@ sf::Vector2i StoneThrower::getTargetPos(WaveManager* waveManager) {
         int range = getRange();
         if (enemyPos.x >= getPosition().x - range && enemyPos.x <= getPosition().x + range && enemyPos.y >= getPosition().y - range && enemyPos.y <= getPosition().y + range) {
             cout << "Enemy in range" << endl;
-            return sf::Vector2i(enemyPos);
+            return sf::Vector2i(enemyPos) + sf::Vector2i(16, -16);
         }
     }
     cout << "No enemy in range" << endl;

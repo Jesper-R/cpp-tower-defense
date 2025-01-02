@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-BigEnemy::BigEnemy() : Enemy(200.0f, 1.5f, 50, "../src/assets/enemies/BigEnemy.png") {
+BigEnemy::BigEnemy() : Enemy(200.0f, 1.5f, 50, "../src/assets/enemies/BigEnemy.png", 20) {
     this->armor = 10;
     deltaTime = clock.getElapsedTime().asSeconds();
 }
@@ -17,7 +17,10 @@ void BigEnemy::move() {
 
     vector<sf::Vector2i> path = getPathFindingData();
     //path[0] = sf::Vector2i(path[0].x + 64, path[0].y);
-    if (currentTargetIndex >= path.size()) return;
+    if (currentTargetIndex >= path.size()) {
+        setReachedEnd(true);
+        return;
+    }
     if (currentTargetIndex == 0) {
         setCurrentPos(path[0]);
         currentTargetIndex++;

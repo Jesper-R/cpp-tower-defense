@@ -18,7 +18,7 @@ public:
     void setMoney(int money);
     void addMoney(int money);
     void removeMoney(int money);
-    void removeLife();
+    void removeLife(int life);
     void addLife();
 };
 

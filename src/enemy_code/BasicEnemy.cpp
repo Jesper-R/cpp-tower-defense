@@ -4,14 +4,19 @@
 
 #include "BasicEnemy.h"
 
-BasicEnemy::BasicEnemy() : Enemy(100.0f, 2.0f, 10, "../src/assets/enemies/BasicEnemy.png") {
+#include <iostream>
+
+BasicEnemy::BasicEnemy() : Enemy(100.0f, 2.0f, 10, "../src/assets/enemies/BasicEnemy.png", 10) {
 
 }
 
 void BasicEnemy::move() {
     vector<sf::Vector2i> path = getPathFindingData();
     //path[0] = sf::Vector2i(path[0].x + 64, path[0].y);
-    if (currentTargetIndex >= path.size()) return;
+    if (currentTargetIndex >= path.size()) {
+        setReachedEnd(true);
+        return;
+    }
     if (currentTargetIndex == 0) {
         setCurrentPos(path[0]);
         currentTargetIndex++;
@@ -28,6 +33,10 @@ void BasicEnemy::move() {
         currentPos = targetPos;
         currentTargetIndex++;
     }
+
+
+
+
 }
 
 void BasicEnemy::update(float deltaTime) {

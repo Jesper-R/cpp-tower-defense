@@ -15,7 +15,7 @@ vector<sf::Vector2i> Wizard::getTargetPositions(WaveManager *waveManager) {
         int range = getRange();
         if (enemyPos.x >= getPosition().x - range && enemyPos.x <= getPosition().x + range && enemyPos.y >= getPosition().y - range && enemyPos.y <= getPosition().y + range) {
             cout << "Enemy in range" << endl;
-            targetPositions.push_back(sf::Vector2i(enemyPos));
+            targetPositions.push_back(sf::Vector2i(enemyPos) + sf::Vector2i(16, -16));
         }
     }
     return targetPositions;

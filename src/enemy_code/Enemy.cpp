@@ -8,16 +8,16 @@
 
 #include "../map_code/GameMap.h"
 
-Enemy::Enemy(float health, float speed, int value, const std::string& textureFile)
-    : GameObject(textureFile), health(health), speed(speed), value(value) {
+Enemy::Enemy(float health, float speed, int value, const std::string& textureFile, int damage)
+    : GameObject(textureFile), health(health), speed(speed), value(value), damage(damage) {
 }
 
 void Enemy::takeDamage(float damage) {
     this->health -= damage;
     std::cout << "Enemy took damage, health: " << this->health << std::endl;
     if (this->health <= 0) {
+        dead = true;
         die();
-
     }
 }
 

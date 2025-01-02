@@ -16,9 +16,9 @@ private:
     static const int GRID_WIDTH = WIDTH / GRID_SIZE;
     static const int GRID_HEIGHT = HEIGHT / GRID_SIZE;
     GameMap gameMap;
-    WaveManager waveManager;
     UIManager uiManager;
     Player player;
+    WaveManager waveManager = (&player);
     TowerManager towerManager = (&waveManager);
 private:
     sf::RenderWindow window;

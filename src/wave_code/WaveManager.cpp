@@ -35,7 +35,8 @@ void WaveManager::spawnWave(WaveData wave) {
     }).detach();
 }
 
-WaveManager::WaveManager() {
+WaveManager::WaveManager(Player* player) {
+    this->player = player;
     loadWaveData();
 }
 
@@ -75,11 +76,27 @@ vector<Enemy*> WaveManager::getEnemies() {
     return enemies;
 }
 
+void WaveManager::removeEnemy(Enemy *enemy) {
+    delete enemy;
+    enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+}
+
 void WaveManager::update() {
+    vector<Enemy*> toRemove;
     //cout << "WaveManager update" << endl;
     float deltaTime = clock.restart().asSeconds();
-    for (auto enemy : enemies) {
+    for (auto& enemy : enemies) {
         enemy->update(deltaTime);
+        if (enemy->isDead()) {
+            toRemove.push_back(enemy);
+        }
+        if (enemy->hasReachedEnd()) {
+            player->removeLife(enemy->getDamage());
+            toRemove.push_back(enemy);
+        }
+    }
+    for (auto& enemy : toRemove) {
+        removeEnemy(enemy);
     }
 }
 
