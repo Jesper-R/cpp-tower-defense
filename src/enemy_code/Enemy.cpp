@@ -4,6 +4,8 @@
 
 #include "Enemy.h"
 
+#include <iostream>
+
 #include "../map_code/GameMap.h"
 
 Enemy::Enemy(float health, float speed, int value, const std::string& textureFile)
@@ -11,9 +13,16 @@ Enemy::Enemy(float health, float speed, int value, const std::string& textureFil
 }
 
 void Enemy::takeDamage(float damage) {
+    this->health -= damage;
+    std::cout << "Enemy took damage, health: " << this->health << std::endl;
+    if (this->health <= 0) {
+        die();
+
+    }
 }
 
 void Enemy::die() {
+    std::cout << "Enemy died" << std::endl;
 }
 
 void Enemy::update(float deltaTime) {

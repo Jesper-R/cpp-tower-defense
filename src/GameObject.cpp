@@ -24,8 +24,8 @@ void GameObject::render() {
 void GameObject::setTexture(const std::string &textureFile) {
 }
 
-sf::Sprite GameObject::getSprite() const {
-    return this->sprite;
+sf::Sprite* GameObject::getSprite() {
+    return &sprite;
 }
 
 sf::Texture GameObject::getTexture() const {

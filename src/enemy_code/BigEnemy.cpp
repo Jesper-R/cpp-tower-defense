@@ -64,7 +64,7 @@ void BigEnemy::update(float deltaTome) {
 }
 
 void BigEnemy::render(sf::RenderWindow &window) {
-    sf::Sprite sprite = getSprite();
-    sprite.setPosition(sf::Vector2f(this->getCurrentPos()));
-    window.draw(sprite);
+    sf::Sprite* sprite = getSprite();
+    sprite->setPosition(sf::Vector2f(this->getCurrentPos()));
+    window.draw(*sprite);
 }

@@ -14,12 +14,13 @@ void StoneThrower::attack(WaveManager* waveManager) {
     std::cout << "StoneThrower attack" << std::endl;
 
     //cout << waveManager->getEnemies().at(0)->getPosition().x << endl;
-    getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), sf::Vector2i(targetPos), 10, 10, "../src/assets/projectiles/stone.png");
+    getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), sf::Vector2i(targetPos), 10, 10, "../src/assets/projectiles/stone.png", waveManager);
 
 }
 
 
 // works but calculates the range a bit off since position is in the bottom left corner of the tower and enemy
+// should add some sort of getCenterPos() function to GameObject
 sf::Vector2i StoneThrower::getTargetPos(WaveManager* waveManager) {
     vector<Enemy*> enemies = waveManager->getEnemies();
     for (auto enemy : enemies) {

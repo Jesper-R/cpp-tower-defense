@@ -31,7 +31,7 @@ void Tower::update(float deltaTime) {
 }
 
 void Tower::render(sf::RenderWindow &window) { // implement dynamic bindning, some towers will have their own rendering? some will use this one
-    sf::Sprite sprite = getSprite();
-    sprite.setPosition(sf::Vector2f(this->towerPos));
-    window.draw(sprite);
+    sf::Sprite* sprite = getSprite();
+    sprite->setPosition(sf::Vector2f(this->towerPos));
+    window.draw(*sprite);
 }

@@ -40,13 +40,13 @@ void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap* g
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new StoneThrower(100, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", player, &projectileManager, waveManager);
+        tower = new StoneThrower(200, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", player, &projectileManager, waveManager);
     } else if (towerType == "wizard") {
         if (player->getMoney() < 100) {
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new Wizard(200, 20, 1, 100, "../src/assets/towers/lvl1/wizard.png", player);
+        tower = new Wizard(100, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", player, &projectileManager, waveManager);
     }
 
     tower->setTowerPos(pixelLoc);

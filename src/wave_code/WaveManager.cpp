@@ -87,7 +87,10 @@ void WaveManager::render(sf::RenderWindow &window) {
     //cout << "WaveManager render" << endl;
 
     for (auto enemy : enemies) {
-        enemy->render(window);
+        //if (enemy != nullptr) {
+            enemy->render(window);
+        //}
+        //enemy->render(window);
     }
 }
 

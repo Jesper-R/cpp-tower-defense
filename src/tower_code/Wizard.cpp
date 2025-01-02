@@ -1,15 +1,33 @@
-//
-// Created by Jesper Rudegran on 2024-12-31.
-//
-
 #include "Wizard.h"
 
-Wizard::Wizard(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player *player): Tower(range, damage, attackSpeed, cost, textureFile, player, nullptr) {
-    //setProjectileManager(projectileManager);
+#include <iostream>
+
+Wizard::Wizard(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player *player, ProjectileManager* projectileManager, WaveManager* waveManager): Tower(range, damage, attackSpeed, cost, textureFile, player, waveManager) {
+    setProjectileManager(projectileManager);
+}
+
+vector<sf::Vector2i> Wizard::getTargetPositions(WaveManager *waveManager) {
+    vector<Enemy*> enemies = waveManager->getEnemies();
+    vector<sf::Vector2i> targetPositions;
+
+    for (auto enemy : enemies) {
+        sf::Vector2f enemyPos = enemy->getPosition();
+        int range = getRange();
+        if (enemyPos.x >= getPosition().x - range && enemyPos.x <= getPosition().x + range && enemyPos.y >= getPosition().y - range && enemyPos.y <= getPosition().y + range) {
+            cout << "Enemy in range" << endl;
+            targetPositions.push_back(sf::Vector2i(enemyPos));
+        }
+    }
+    return targetPositions;
 }
 
 void Wizard::attack(WaveManager* waveManager) {
-    //Tower::attack();
+    std::cout << "Wizard attack" << std::endl;
+    vector<sf::Vector2i> targetPositions = getTargetPositions(waveManager);
+    if (targetPositions.empty()) return;
+    for (auto pos : targetPositions) {
+        getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), pos, 10, 10, "../src/assets/projectiles/fireball.png", waveManager);
+    }
 }
 
 void Wizard::render(sf::RenderWindow &window) {

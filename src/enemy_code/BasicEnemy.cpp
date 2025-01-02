@@ -31,6 +31,7 @@ void BasicEnemy::move() {
 }
 
 void BasicEnemy::update(float deltaTime) {
+    Enemy::update(deltaTime);
     /*sf::Vector2i currentPos = getCurrentPos();
     currentPos.x += 1 * getSpeed();
     this->setPos(sf::Vector2f(currentPos));*/
@@ -38,7 +39,7 @@ void BasicEnemy::update(float deltaTime) {
 }
 
 void BasicEnemy::render(sf::RenderWindow& window) {
-    sf::Sprite sprite = getSprite();
-    sprite.setPosition(sf::Vector2f(this->getCurrentPos()));
-    window.draw(sprite);
+    sf::Sprite* sprite = getSprite();
+    sprite->setPosition(sf::Vector2f(this->getCurrentPos()));
+    window.draw(*sprite);
 }
