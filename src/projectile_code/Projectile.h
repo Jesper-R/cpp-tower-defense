@@ -12,6 +12,7 @@ class Projectile : public GameObject {
     sf::Vector2f startPos;
     sf::Vector2f currentPos;
     float velocity;
+    bool hit = false;
     float damage;
     sf::Vector2f targetPos;
     sf::Vector2f direction;
@@ -22,11 +23,11 @@ class Projectile : public GameObject {
     void applyDamage();
 public:
     Projectile(float velocity, float damage, const std::string& textureFile, sf::Vector2f startPos, sf::Vector2f targetPos, WaveManager* waveManager, ProjectileManager* projectileManager);
-    bool checkCollision(WaveManager* waveManager);
+    void checkCollision(WaveManager* waveManager);
     void update();
     void move();
     void render(sf::RenderWindow& window);
-
+    bool hasHit() const { return hit; }
 
 };
 

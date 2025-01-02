@@ -15,22 +15,23 @@ Projectile::Projectile(float velocity, float damage, const std::string &textureF
     direction /= length;
 }
 
-bool Projectile::checkCollision(WaveManager* waveManager) {
+void Projectile::checkCollision(WaveManager* waveManager) {
     vector<Enemy*> enemies = waveManager->getEnemies();
     for (auto enemy : enemies) {
         if(enemy->getSprite()->getGlobalBounds().intersects(this->getSprite()->getGlobalBounds())) {
             enemy->takeDamage(damage);
-            projectileManager->removeProjectile(this);
-            delete this;
+            hit = true;
             std::cout << "Collision" << std::endl;
-            return true;
+            //return true;
         }
     }
+    //return false;
 }
 
 void Projectile::update() {
-    checkCollision(waveManager);
     move();
+    checkCollision(waveManager);
+
 }
 
 void Projectile::move() {
