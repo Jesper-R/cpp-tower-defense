@@ -4,11 +4,12 @@
 
 #include "Wizard.h"
 
-Wizard::Wizard(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player *player): Tower(range, damage, attackSpeed, cost, textureFile, player) {
+Wizard::Wizard(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player *player): Tower(range, damage, attackSpeed, cost, textureFile, player, nullptr) {
+    //setProjectileManager(projectileManager);
 }
 
-void Wizard::attack() {
-    Tower::attack();
+void Wizard::attack(WaveManager* waveManager) {
+    //Tower::attack();
 }
 
 void Wizard::render(sf::RenderWindow &window) {

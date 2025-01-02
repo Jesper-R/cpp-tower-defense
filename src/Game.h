@@ -19,7 +19,7 @@ private:
     WaveManager waveManager;
     UIManager uiManager;
     Player player;
-    TowerManager towerManager;
+    TowerManager towerManager = (&waveManager);
 private:
     sf::RenderWindow window;
     sf::Clock clock;

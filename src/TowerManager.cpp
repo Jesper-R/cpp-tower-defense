@@ -10,7 +10,10 @@
 #include "tower_code/StoneThrower.h"
 #include "tower_code/Wizard.h"
 
-TowerManager::TowerManager() {
+
+
+TowerManager::TowerManager(WaveManager *waveManager) {
+    this->waveManager = waveManager;
 }
 
 TowerManager::~TowerManager() {
@@ -37,7 +40,7 @@ void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap* g
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new StoneThrower(100, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", player, &projectileManager);
+        tower = new StoneThrower(100, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", player, &projectileManager, waveManager);
     } else if (towerType == "wizard") {
         if (player->getMoney() < 100) {
             cout << "Not enough money" << endl;

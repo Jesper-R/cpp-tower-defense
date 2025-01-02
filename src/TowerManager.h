@@ -16,10 +16,11 @@ using namespace std;
 class TowerManager {
     vector<Tower*> towers;
     ProjectileManager projectileManager;
+    WaveManager* waveManager;
     vector<sf::Vector2i> occupiedGridLocs;
     sf::Clock clock;
 public:
-    TowerManager();
+    TowerManager(WaveManager* waveManager);
     ~TowerManager();
     void placeTower(sf::Vector2i gridLoc, string towerType, GameMap* gameMap, Player* player);
     void update();

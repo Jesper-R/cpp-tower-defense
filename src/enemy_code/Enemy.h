@@ -36,7 +36,7 @@ public:
     sf::Vector2i getStartPos() const { return startPos; }
     sf::Vector2i getCurrentPos() const { return currentPos; }
     sf::Vector2i getEndPos() const { return endPos; }
-    void setCurrentPos(sf::Vector2i pos) { currentPos = pos; }
+    void setCurrentPos(sf::Vector2i pos) { currentPos = pos; setPosition(sf::Vector2f(pos)); }
     float getSpeed() const { return speed; }
 };
 

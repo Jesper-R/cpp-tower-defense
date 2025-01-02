@@ -29,6 +29,7 @@ public:
     void startWaveSpawning();
     bool isWaveDefeated(WaveData wave);
     void loadWaveData();
+    vector<Enemy*> getEnemies();
     void update();
     void render(sf::RenderWindow& window);
 };

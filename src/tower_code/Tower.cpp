@@ -6,11 +6,11 @@
 
 #include <iostream>
 
-Tower::Tower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player): GameObject(textureFile), range(range), damage(damage), cost(cost), attackSpeed(attackSpeed) {
+Tower::Tower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, WaveManager* waveManager): GameObject(textureFile), range(range), damage(damage), cost(cost), attackSpeed(attackSpeed), waveManager(waveManager) {
     player->removeMoney(cost);
 }
 
-void Tower::attack() {
+void Tower::attack(WaveManager* waveManager) {
     std::cout << "Tower attack" << std::endl;
 }
 
@@ -25,7 +25,7 @@ void Tower::setTowerPos(sf::Vector2i pos) {
 void Tower::update(float deltaTime) {
     attackTimer += deltaTime;
     if (attackTimer >= attackSpeed) {
-        attack(); // attack is a virtual function, so it will call the correct attack function for the tower type
+        attack(this->waveManager); // attack is a virtual function, so it will call the correct attack function for the tower type
         attackTimer = 0.0f;
     }
 }

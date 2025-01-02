@@ -71,6 +71,10 @@ void WaveManager::loadWaveData() {
     cout << "Loaded wave data" << endl;
 }
 
+vector<Enemy*> WaveManager::getEnemies() {
+    return enemies;
+}
+
 void WaveManager::update() {
     //cout << "WaveManager update" << endl;
     float deltaTime = clock.restart().asSeconds();

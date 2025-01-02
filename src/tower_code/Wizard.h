@@ -10,7 +10,7 @@
 class Wizard : public Tower {
 public:
     Wizard(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player);
-    void attack() override;
+    void attack(WaveManager* waveManager) override;
     void render(sf::RenderWindow& window) override;
 
 };
