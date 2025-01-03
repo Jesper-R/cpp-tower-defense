@@ -26,7 +26,7 @@ class Tower : public GameObject {
     //ProjectileManager* projectileManager = nullptr;
 public:
     Tower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, WaveManager* waveManager);
-    virtual void attack(WaveManager* waveManager);
+    virtual void attack(WaveManager* waveManager) = 0;
     void setTarget(Enemy* enemy);
     void setTowerPos(sf::Vector2i pos);
     void update(float deltaTime);

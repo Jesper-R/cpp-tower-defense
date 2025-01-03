@@ -89,6 +89,7 @@ void WaveManager::update() {
     for (auto& enemy : enemies) {
         enemy->update(deltaTime);
         if (enemy->isDead()) {
+            player->addMoney(enemy->getValue());
             toRemove.push_back(enemy);
         }
         if (enemy->hasReachedEnd()) {
