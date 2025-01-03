@@ -19,13 +19,13 @@ class WaveManager {
     vector<WaveData> waves;
     GameMap map;
     Player* player;
+    sf::RenderWindow* window;
     vector<Enemy*> enemies;
     sf::Clock clock;
 
     void spawnWave(WaveData wave);
 public:
-    WaveManager(Player* player);
-    WaveManager(GameMap map);
+    WaveManager(Player* player, sf::RenderWindow* window);
 
     void setGameMap(GameMap map);
 

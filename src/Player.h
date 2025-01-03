@@ -4,7 +4,7 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
-
+#include "SFML/Graphics/RenderWindow.hpp"
 
 
 class Player {
@@ -20,6 +20,7 @@ public:
     void removeMoney(int money);
     void removeLife(int life);
     void addLife();
+    void update(sf::RenderWindow* window);
 };
 
 

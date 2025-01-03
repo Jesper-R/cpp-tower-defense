@@ -35,8 +35,9 @@ void WaveManager::spawnWave(WaveData wave) {
     }).detach();
 }
 
-WaveManager::WaveManager(Player* player) {
+WaveManager::WaveManager(Player* player, sf::RenderWindow* window) {
     this->player = player;
+    this->window = window;
     loadWaveData();
 }
 
@@ -92,6 +93,7 @@ void WaveManager::update() {
         }
         if (enemy->hasReachedEnd()) {
             player->removeLife(enemy->getDamage());
+            player->update(this->window);
             toRemove.push_back(enemy);
         }
     }

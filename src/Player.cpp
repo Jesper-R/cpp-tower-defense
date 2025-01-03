@@ -37,3 +37,9 @@ void Player::removeLife(int life) {
 
 void Player::addLife() {
 }
+
+void Player::update(sf::RenderWindow* window) {
+    if (lives <= 0) {
+        window->close();
+    }
+}

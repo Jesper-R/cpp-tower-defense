@@ -76,10 +76,8 @@ void Game::render()
 }
 
 Game::Game()
-    :
-      timePerFrame(sf::seconds(1.f / 60.f)),
-      elapsedTimeSinceLastUpdate(sf::Time::Zero)
-{
+    : timePerFrame(sf::seconds(1.f / 60.f)),
+      elapsedTimeSinceLastUpdate(sf::Time::Zero), waveManager(&player, &window), towerManager(&waveManager){
     gameMap.loadMapFromFile("../src/map.json");
 
     int width = gameMap.getGridWidth() * GRID_SIZE;
@@ -92,7 +90,6 @@ Game::Game()
     uiManager.initUI();
     waveManager.setGameMap(gameMap);
     waveManager.startWaveSpawning();
-
 }
 
 Game::~Game()
