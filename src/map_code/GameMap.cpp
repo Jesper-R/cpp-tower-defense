@@ -21,13 +21,17 @@ void GameMap::loadMapFromFile(std::string filename) {
 
     json mapData;
     file >> mapData;
+    try {
+        this->width = mapData["width"];
+        this->height = mapData["height"];
+        this->startGridLoc = sf::Vector2i(mapData["start"]["x"], mapData["start"]["y"]);
+        this->endGridLoc = sf::Vector2i(mapData["end"]["x"], mapData["end"]["y"]);
+        this->startingMoney = mapData["starting_money"];
+        this->startingLives = mapData["starting_lives"];
+    } catch (const std::exception& e) {
+        throw runtime_error("Error parsing map data: " + string(e.what()));
+    }
 
-    this->width = mapData["width"];
-    this->height = mapData["height"];
-    this->startGridLoc = sf::Vector2i(mapData["start"]["x"], mapData["start"]["y"]);
-    this->endGridLoc = sf::Vector2i(mapData["end"]["x"], mapData["end"]["y"]);
-    this->startingMoney = mapData["starting_money"];
-    this->startingLives = mapData["starting_lives"];
     vector map(width, vector<GridCell>(height));
 
     auto initializeGridCell = [&](const json& path, const string& pathType, bool blocksPlacement = false)

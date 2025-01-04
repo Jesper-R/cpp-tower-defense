@@ -38,7 +38,6 @@ void WaveManager::spawnWave(WaveData wave) {
 WaveManager::WaveManager(Player* player, sf::RenderWindow* window) {
     this->player = player;
     this->window = window;
-    loadWaveData();
 }
 
 void WaveManager::setGameMap(GameMap map) {
@@ -61,13 +60,18 @@ void WaveManager::loadWaveData() {
     ifstream file("../src/map.json");
 
     if (!file.is_open())
-        throw runtime_error("Could not open file map.json");
+        throw runtime_error("Could not open or locate file map.json");
 
     json mapData;
     file >> mapData;
 
     for (auto wave : mapData["waves"]) {
-        WaveData waveData = WaveData(wave["wave_nr"], wave["next_wave_delay_ms"]);
+        WaveData waveData;
+        try {
+            waveData = WaveData(wave["wave_nr"], wave["next_wave_delay_ms"]);
+        } catch (const exception& e) {
+            throw runtime_error("Error parsing wave data: " + string(e.what())); // throws it further to be catched in Game.cpp but sends with origin so we know where exactly it came from
+        }
         waves.push_back(waveData);
     }
     cout << "Loaded wave data" << endl;

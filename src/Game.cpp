@@ -78,17 +78,30 @@ void Game::render()
 Game::Game()
     : timePerFrame(sf::seconds(1.f / 60.f)),
       elapsedTimeSinceLastUpdate(sf::Time::Zero), waveManager(&player, &window), towerManager(&waveManager){
-    gameMap.loadMapFromFile("../src/map.json");
+
+    try {
+        gameMap.loadMapFromFile("../src/map.json");
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
 
     int width = gameMap.getGridWidth() * GRID_SIZE;
     int height = gameMap.getGridHeight() * GRID_SIZE;
+
     this->window.create(sf::VideoMode(width, height), "Pixel Defense");
 
     player.setLives(gameMap.getStartingLives());
     player.setMoney(gameMap.getStartingMoney());
-
     uiManager.initUI();
     waveManager.setGameMap(gameMap);
+
+    try {
+        waveManager.loadWaveData();
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+
     waveManager.startWaveSpawning();
 }
 

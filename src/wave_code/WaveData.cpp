@@ -32,7 +32,6 @@ void WaveData::loadGroupData(int waveNumber) {
     group.spawnDelay = wave["spawn_delay_ms"];
 
     for (const auto& enemies : wave["enemies"]) {
-
         group.enemyType = enemies["type"];
         group.count = enemies["count"];
         enemiesLeft += group.count;

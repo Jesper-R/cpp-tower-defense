@@ -29,6 +29,7 @@ public:
 
     void setGameMap(GameMap map);
 
+
     void startWaveSpawning();
     bool isWaveDefeated(WaveData wave);
     void loadWaveData();
