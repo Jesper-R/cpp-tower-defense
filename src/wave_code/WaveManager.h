@@ -31,7 +31,7 @@ public:
 
 
     void startWaveSpawning();
-    bool isWaveDefeated(WaveData wave);
+    static bool isWaveDefeated(const WaveData& wave);
     void loadWaveData();
     vector<Enemy*> getEnemies();
     void removeEnemy(Enemy* enemy);

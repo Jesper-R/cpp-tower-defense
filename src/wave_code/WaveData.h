@@ -26,6 +26,7 @@ public:
     WaveData(int waveNumber, int nexWaveDelay);
     void loadGroupData(int waveNumber);
     int getEnemiesLeft() const { return enemiesLeft; }
+    int decrementEnemiesLeft() { return --enemiesLeft; }
     vector<EnemyGroup> getWaveComposition() const { return waveComposition; }
 };
 

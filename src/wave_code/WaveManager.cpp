@@ -13,9 +13,15 @@ using namespace std;
 
 void WaveManager::spawnWave(WaveData wave) {
     thread([this, wave]() {
+        int currentGroup = 1;
         for (const auto& group : wave.getWaveComposition()) {
-            this_thread::sleep_for(chrono::milliseconds(group.nextGroupDelay));
             for (int i = 0; i < group.count; ++i) {
+                //this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
+                if (i == 0) {} else {
+                    cout << "ENEMY SLEEP" << endl;
+                    this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
+                }
+
                 Enemy* enemy = nullptr;
                 if (group.enemyType == "basic") {
                     enemy = new BasicEnemy();
@@ -24,13 +30,17 @@ void WaveManager::spawnWave(WaveData wave) {
                 }
                 if (enemy) {
                     enemies.push_back(enemy);
-                    //enemy->setPath(map.getStartGridLoc(), map.getEndGridLoc()); // add turn locs here later for pathfinding
                     enemy->setPath(&map);
                     enemy->setCurrentPos(map.gridToPixel(map.getStartGridLoc()));
-                    //cout << "Spawned enemy" << endl;
                 }
-                this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
             }
+            if (currentGroup < wave.getWaveComposition().size()) {
+                this_thread::sleep_for(chrono::milliseconds(group.nextGroupDelay));
+            }
+
+            cout << "Group done" << endl;
+            currentGroup++;
+            this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
         }
     }).detach();
 }
@@ -49,7 +59,7 @@ void WaveManager::startWaveSpawning() {
     spawnWave(waves[currentWave-1]);
 }
 
-bool WaveManager::isWaveDefeated(WaveData wave) {
+bool WaveManager::isWaveDefeated(const WaveData& wave) {
     if (wave.getEnemiesLeft() == 0) {
         return true;
     }
@@ -84,6 +94,7 @@ vector<Enemy*> WaveManager::getEnemies() {
 void WaveManager::removeEnemy(Enemy *enemy) {
     delete enemy;
     enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+    waves[currentWave-1].decrementEnemiesLeft();
 }
 
 void WaveManager::update() {
@@ -105,16 +116,21 @@ void WaveManager::update() {
     for (auto& enemy : toRemove) {
         removeEnemy(enemy);
     }
+
+    if (isWaveDefeated(waves[currentWave-1])) {
+        currentWave++;
+        if (currentWave <= waves.size()) {
+            spawnWave(waves[currentWave-1]);
+        } else {
+            cout << "All waves defeated" << endl;
+            window->close();
+        }
+    }
 }
 
 void WaveManager::render(sf::RenderWindow &window) {
-    //cout << "WaveManager render" << endl;
-
     for (auto enemy : enemies) {
-        //if (enemy != nullptr) {
-            enemy->render(window);
-        //}
-        //enemy->render(window);
+        enemy->render(window);
     }
 }
 
