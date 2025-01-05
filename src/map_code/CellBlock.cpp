@@ -1,19 +1,15 @@
-//
-// Created by Jespe on 2024-12-15.
-//
-
 #include "CellBlock.h"
 #include <random>
 #include <vector>
-#include <iostream>
-#include <algorithm>
+#include <string>
+using namespace std;
 
 struct PathOption {
     int odds;
-    std::string pathName;
+    string pathName;
 };
 
-std::vector<PathOption> options = {
+vector<PathOption> options = {
     {80, "flowers_1"},
     {80, "flowers_2"},
     {5, "pond"},
@@ -22,7 +18,6 @@ std::vector<PathOption> options = {
 };
 
 CellBlock::CellBlock(std::string pathType) {
-    std::cout << "Path constructor" << std::endl;
     this->pathType = pathType;
 
     int totalOdds = 0;
@@ -32,7 +27,7 @@ CellBlock::CellBlock(std::string pathType) {
 
     static std::random_device rd;
     static std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, totalOdds - 1);
+    uniform_int_distribution<> dis(0, totalOdds - 1);
     int randomValue = dis(gen);
 
     int cumulativeOdds = 0;
@@ -45,15 +40,15 @@ CellBlock::CellBlock(std::string pathType) {
     }
 }
 
-CellBlock::CellBlock(std::string pathType, std::string pathName) {
+CellBlock::CellBlock(string pathType, string pathName) {
     this->pathType = pathType;
     this->pathName = pathName;
 }
 
-std::string CellBlock::getPathName() {
+string CellBlock::getPathName() const {
     return this->pathName;
 }
 
-std::string CellBlock::getPathType() {
+string CellBlock::getPathType() const {
     return this->pathType;
 }

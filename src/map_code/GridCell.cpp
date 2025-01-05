@@ -1,52 +1,38 @@
-//
-// Created by Jespe on 2024-12-15.
-//
-
 #include "GridCell.h"
 #include "CellBlock.h"
 #include <string>
-
 using namespace std;
 
 GridCell::GridCell() {
-}
-
-GridCell::GridCell(sf::Vector2u gridPos, string pathType, string pathName) {
-	this->path = new CellBlock(pathType, pathName);
-	this->gridPos = gridPos;
+	this->path = nullptr;
+	this->gridPos = sf::Vector2u(0, 0);
+	this->isBlocked = false;
+	this->containsTower = false;
 }
 
 GridCell::GridCell(sf::Vector2u gridPos, string pathType, string pathName, bool isBlocked) {
 	this->path = new CellBlock(pathType, pathName);
 	this->gridPos = gridPos;
 	this->isBlocked = isBlocked;
-}
-
-bool GridCell::canPlace() {
+	this->containsTower = false;
 }
 
 void GridCell::setIsBlocked(bool isBlocked) {
 	this->isBlocked = isBlocked;
 }
 
-void GridCell::setOccupant() {
-}
-
-void GridCell::clearOccupant() {
-}
-
-bool GridCell::getIsBlocked() {
+bool GridCell::getIsBlocked() const {
 	return this->isBlocked;
 }
 
-string GridCell::getPathType() {
+string GridCell::getPathType() const {
 	return this->path->getPathType();
 }
 
-string GridCell::getPathName() {
+string GridCell::getPathName() const {
 	return this->path->getPathName();
 }
 
-CellBlock * GridCell::getPath() {
+CellBlock * GridCell::getPath() const {
 	return this->path;
 }

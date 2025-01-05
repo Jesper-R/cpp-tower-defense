@@ -2,18 +2,11 @@
 #include <string>
 #include <nlohmann/json.hpp>
 #include <fstream>
-#include <iostream>
 #include <SFML/Graphics.hpp>
-
 using namespace std;
 using json = nlohmann::json;
 
-GameMap::GameMap() {
-
-}
-
 void GameMap::loadMapFromFile(std::string filename) {
-    cout << "starting to load from file" << endl;
     ifstream file("../src/" + filename);
 
     if (!file.is_open())
@@ -78,7 +71,6 @@ void GameMap::loadMapFromFile(std::string filename) {
     }
 
     this->map = map;
-    cout << "finished loading map from file" << endl;
 }
 
 void GameMap::render(sf::RenderWindow &window) {
@@ -87,7 +79,7 @@ void GameMap::render(sf::RenderWindow &window) {
             sf::Texture texture;
             CellBlock* path = map[i][j].getPath();
             if (path && !texture.loadFromFile("../src/assets/" + path->getPathType() + "/" + path->getPathName() + ".png")) {
-                std::cout << "Failed to load texture" << std::endl;
+                throw runtime_error("Failed to load texture: " + path->getPathName());
             }
             sf::Sprite sprite;
             sprite.setPosition(i * 64, (height - j - 1) * 64);
@@ -97,22 +89,11 @@ void GameMap::render(sf::RenderWindow &window) {
     }
 }
 
-void GameMap::getMapInfo() {
-    for (int i = 0; i < this->width; ++i) {
-        for (int j = 0; j < this->height; ++j) {
-            GridCell* cell = &map[i][j];
-            //cout << "GridCell at (" << i << ", " << j << ") with pathType: " << map[i][j].getPathType() << " and pathName: " << map[i][j].getPathName() << " isBlocked: " << cell->getIsBlocked() << endl;
-        }
-    }
-}
-
 bool GameMap::isBlocked(sf::Vector2i gridLoc) {
     return map[gridLoc.x][gridLoc.y].getIsBlocked();
 }
 
 void GameMap::update() {
-    //loop through all grid cells and update them
-
     for (int i = 0; i < this->width; ++i) {
         for (int j = 0; j < this->height; ++j) {
             string pathName = map[i][j].getPathName();
@@ -124,11 +105,11 @@ void GameMap::update() {
     }
 }
 
-int GameMap::getStartingMoney() {
+int GameMap::getStartingMoney() const {
     return startingMoney;
 }
 
-int GameMap::getStartingLives() {
+int GameMap::getStartingLives() const {
     return startingLives;
 }
 
@@ -152,10 +133,10 @@ vector<sf::Vector2i> GameMap::getTurnGridLocs() {
     return this->turnGridLocs;
 }
 
-int GameMap::getGridWidth() {
+int GameMap::getGridWidth() const {
     return width;
 }
 
-int GameMap::getGridHeight() {
+int GameMap::getGridHeight() const {
     return height;
 }

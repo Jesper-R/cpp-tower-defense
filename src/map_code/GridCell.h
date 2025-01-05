@@ -9,23 +9,16 @@ using namespace std;
 class GridCell {
     bool containsTower;
     bool isBlocked;
-    bool isPath;
-    bool isTurn;
-
     CellBlock* path = nullptr;
     sf::Vector2u gridPos;
 public:
-    string getPathType();
-    string getPathName();
-    CellBlock * getPath();
     GridCell();
-    GridCell(sf::Vector2u gridPos, string pathType, string pathName);
     GridCell(sf::Vector2u gridPos, string pathType, string pathName, bool isBlocked);
-    bool canPlace();
+    string getPathType() const;
+    string getPathName() const;
+    CellBlock* getPath() const;
     void setIsBlocked(bool isBlocked);
-    void setOccupant();
-    void clearOccupant();
-    bool getIsBlocked();
+    bool getIsBlocked() const;
 };
 
 #endif //GRIDCELL_H
