@@ -5,8 +5,8 @@
 class StoneThrower : public Tower {
   public:
     StoneThrower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, ProjectileManager* projectileManager, WaveManager* waveManager);
-    void attack(WaveManager* waveManager) override;
-    sf::Vector2i getTargetPos(WaveManager* waveManager); //override;
+    //void attack(WaveManager* waveManager) override;
+    //sf::Vector2i getTargetPos(WaveManager* waveManager); //override;
 };
 
 #endif //STONETHROWER_H

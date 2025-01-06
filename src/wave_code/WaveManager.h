@@ -1,7 +1,3 @@
-//
-// Created by Jesper Rudegran on 2024-12-27.
-//
-
 #ifndef WAVEMANAGER_H
 #define WAVEMANAGER_H
 
@@ -22,14 +18,10 @@ class WaveManager {
     sf::RenderWindow* window;
     vector<Enemy*> enemies;
     sf::Clock clock;
-
     void spawnWave(WaveData wave);
 public:
     WaveManager(Player* player, sf::RenderWindow* window);
-
     void setGameMap(GameMap map);
-
-
     void startWaveSpawning();
     static bool isWaveDefeated(const WaveData& wave);
     void loadWaveData();
@@ -38,7 +30,5 @@ public:
     void update();
     void render(sf::RenderWindow& window);
 };
-
-
 
 #endif //WAVEMANAGER_H
