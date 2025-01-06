@@ -1,5 +1,4 @@
 #include "Wizard.h"
-
 #include <iostream>
 
 Wizard::Wizard(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player *player, ProjectileManager* projectileManager, WaveManager* waveManager): Tower(range, damage, attackSpeed, cost, textureFile, player, waveManager) {
@@ -28,8 +27,4 @@ void Wizard::attack(WaveManager* waveManager) {
     for (auto pos : targetPositions) {
         getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), pos, 10, 10, "../src/assets/projectiles/fireball.png", waveManager);
     }
-}
-
-void Wizard::render(sf::RenderWindow &window) {
-    Tower::render(window);
 }

@@ -1,25 +1,25 @@
-//
-// Created by Jesper Rudegran on 2024-12-31.
-//
-
 #include "Tower.h"
-
 #include <iostream>
 
 Tower::Tower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, WaveManager* waveManager): GameObject(textureFile), range(range), damage(damage), cost(cost), attackSpeed(attackSpeed), waveManager(waveManager) {
     player->removeMoney(cost);
 }
 
-void Tower::attack(WaveManager* waveManager) {
-    std::cout << "Tower attack" << std::endl;
-}
-
-void Tower::setTarget(Enemy *enemy) {
-}
-
 void Tower::setTowerPos(sf::Vector2i pos) {
     this->towerPos = pos;
     setPosition(sf::Vector2f(pos));
+}
+
+void Tower::setProjectileManager(ProjectileManager *projectileManager) {
+    this->projectileManager = projectileManager;
+}
+
+int Tower::getRange() const {
+    return this->range;
+}
+
+ProjectileManager * Tower::getProjectileManager() const {
+    return this->projectileManager;
 }
 
 void Tower::update(float deltaTime) {

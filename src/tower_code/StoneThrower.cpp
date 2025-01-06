@@ -1,5 +1,4 @@
 #include "StoneThrower.h"
-
 #include <iostream>
 
 StoneThrower::StoneThrower(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player* player, ProjectileManager* projectileManager, WaveManager* waveManager): Tower(range, damage, attackSpeed, cost, textureFile, player, waveManager) {
@@ -7,17 +6,11 @@ StoneThrower::StoneThrower(int range, float damage, float attackSpeed, int cost,
 }
 
 void StoneThrower::attack(WaveManager* waveManager) {
-
     sf::Vector2i targetPos = getTargetPos(waveManager);
     if (targetPos == sf::Vector2i(-1, -1)) return;
-
     std::cout << "StoneThrower attack" << std::endl;
-
-    //cout << waveManager->getEnemies().at(0)->getPosition().x << endl;
     getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), sf::Vector2i(targetPos), 10, 10, "../src/assets/projectiles/stone.png", waveManager);
-
 }
-
 
 // works but calculates the range a bit off since position is in the bottom left corner of the tower and enemy
 // should add some sort of getCenterPos() function to GameObject
@@ -33,11 +26,4 @@ sf::Vector2i StoneThrower::getTargetPos(WaveManager* waveManager) {
     }
     cout << "No enemy in range" << endl;
     return sf::Vector2i(-1, -1);
-}
-
-void StoneThrower::update() {
-}
-
-void StoneThrower::render(sf::RenderWindow &window) {
-    Tower::render(window);
 }
