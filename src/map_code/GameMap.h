@@ -15,6 +15,7 @@ class GameMap {
 	int width, height;
 	int startingMoney, startingLives;
 public:
+	GameMap();
 	int getGridWidth() const;
 	int getGridHeight() const;
 	void loadMapFromFile(std::string filename);

@@ -1,4 +1,6 @@
 #include "ProjectileManager.h"
+#include "../wave_code/WaveManager.h"
+using namespace std;
 
 void ProjectileManager::addProjectile(sf::Vector2i towerPos, sf::Vector2i targetPos, float velocity, float damage,
     const string &textureFile, WaveManager* waveManager) {
@@ -7,11 +9,11 @@ void ProjectileManager::addProjectile(sf::Vector2i towerPos, sf::Vector2i target
 
 void ProjectileManager::removeProjectile(Projectile *projectile) {
     delete projectile;
-    projectiles.erase(std::remove(projectiles.begin(), projectiles.end(), projectile), projectiles.end());
+    projectiles.erase(remove(projectiles.begin(), projectiles.end(), projectile), projectiles.end());
 }
 
 void ProjectileManager::update() {
-    std::vector<Projectile*> toRemove;
+    vector<Projectile*> toRemove;
 
     for (auto& projectile : projectiles) {
         projectile->update();
@@ -19,13 +21,13 @@ void ProjectileManager::update() {
             toRemove.push_back(projectile);
         }
     }
-    // doesnt modify the vector while iterating, get a sigsegv otherwise.........
+
     for (auto& projectile : toRemove) {
         removeProjectile(projectile);
     }
 }
 
-void ProjectileManager::render(sf::RenderWindow &window) {
+void ProjectileManager::render(sf::RenderWindow &window) const {
     for (auto& projectile : projectiles) {
         projectile->render(window);
     }

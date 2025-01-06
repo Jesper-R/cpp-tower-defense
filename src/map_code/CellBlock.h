@@ -8,6 +8,7 @@ class CellBlock {
     string pathName;
     string pathType;
 public:
+    CellBlock();
     CellBlock(string pathType);
     CellBlock(string pathType, string pathName);
     string getPathName() const;

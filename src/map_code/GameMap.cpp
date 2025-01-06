@@ -6,6 +6,13 @@
 using namespace std;
 using json = nlohmann::json;
 
+GameMap::GameMap() {
+    this->width = 0;
+    this->height = 0;
+    this->startingMoney = 0;
+    this->startingLives = 0;
+}
+
 void GameMap::loadMapFromFile(std::string filename) {
     ifstream file("../src/" + filename);
 

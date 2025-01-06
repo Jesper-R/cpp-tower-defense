@@ -17,6 +17,11 @@ vector<PathOption> options = {
     {700, "grass"}
 };
 
+CellBlock::CellBlock() {
+    this->pathType = "unknown";
+    this->pathName = "unknown";
+}
+
 CellBlock::CellBlock(std::string pathType) {
     this->pathType = pathType;
 
