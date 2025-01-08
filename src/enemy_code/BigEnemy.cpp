@@ -4,6 +4,7 @@
 
 #include "BigEnemy.h"
 
+#include <cmath>
 #include <iostream>
 
 BigEnemy::BigEnemy() : Enemy(200.0f, 1.5f, 50, "../src/assets/enemies/BigEnemy.png", 20) {

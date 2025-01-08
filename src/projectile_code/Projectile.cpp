@@ -1,4 +1,6 @@
 #include "Projectile.h"
+
+#include <cmath>
 #include <iostream>
 #include "ProjectileManager.h"
 
