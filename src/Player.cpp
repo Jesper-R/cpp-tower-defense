@@ -1,7 +1,3 @@
-//
-// Created by Jesper Rudegran on 2024-12-27.
-//
-
 #include "Player.h"
 
 Player::Player() {
@@ -35,11 +31,8 @@ void Player::removeLife(int life) {
     this->lives -= life;
 }
 
-void Player::addLife() {
-}
-
-void Player::update(sf::RenderWindow* window) {
+void Player::update(sf::RenderWindow& window) {
     if (lives <= 0) {
-        window->close();
+        window.close();
     }
 }

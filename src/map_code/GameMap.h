@@ -24,8 +24,8 @@ public:
 	void update();
 	int getStartingMoney() const;
 	int getStartingLives() const;
-	sf::Vector2i getStartGridLoc();
-	sf::Vector2i getEndGridLoc();
+	sf::Vector2i getStartGridLoc() const;
+	sf::Vector2i getEndGridLoc() const;
 	vector<sf::Vector2i> getTurnGridLocs();
 	static sf::Vector2i gridToPixel(sf::Vector2i gridLoc);
 	static sf::Vector2i pixelToGrid(sf::Vector2i pixelLoc);

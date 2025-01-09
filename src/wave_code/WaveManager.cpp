@@ -109,7 +109,7 @@ void WaveManager::update() {
         }
         if (enemy->hasReachedEnd()) {
             player->removeLife(enemy->getDamage());
-            player->update(this->window);
+            player->update(*window);
             toRemove.push_back(enemy);
         }
     }

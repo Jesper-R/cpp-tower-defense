@@ -120,11 +120,11 @@ int GameMap::getStartingLives() const {
     return startingLives;
 }
 
-sf::Vector2i GameMap::getStartGridLoc() {
+sf::Vector2i GameMap::getStartGridLoc() const {
     return this->startGridLoc;
 }
 
-sf::Vector2i GameMap::getEndGridLoc() {
+sf::Vector2i GameMap::getEndGridLoc() const {
     return this->endGridLoc;
 }
 

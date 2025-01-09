@@ -19,8 +19,7 @@ public:
     void addMoney(int money);
     void removeMoney(int money);
     void removeLife(int life);
-    void addLife();
-    void update(sf::RenderWindow* window);
+    void update(sf::RenderWindow& window);
 };
 
 

@@ -30,7 +30,6 @@ private:
     void handleEvents();
     void update();
     void render();
-    void renderUI();
 public:
     Game();
     ~Game();

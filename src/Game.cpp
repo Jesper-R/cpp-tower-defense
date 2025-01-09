@@ -120,7 +120,3 @@ void Game::run()
         render();
     }
 }
-
-void Game::renderUI() {
-
-}
