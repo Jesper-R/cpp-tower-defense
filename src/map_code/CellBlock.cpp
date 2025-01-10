@@ -4,29 +4,16 @@
 #include <string>
 using namespace std;
 
-struct PathOption {
-    int odds;
-    string pathName;
-};
-
-vector<PathOption> options = {
-    {80, "flowers_1"},
-    {80, "flowers_2"},
-    {5, "pond"},
-    {5, "stone"},
-    {700, "grass"}
-};
-
 CellBlock::CellBlock() {
-    this->pathType = "unknown";
-    this->pathName = "unknown";
+    this->blockType = "unknown";
+    this->blockName = "unknown";
 }
 
-CellBlock::CellBlock(std::string pathType) {
-    this->pathType = pathType;
+CellBlock::CellBlock(std::string blockType) {
+    this->blockType = blockType;
 
     int totalOdds = 0;
-    for (const auto& option : options) {
+    for (const auto& option : odds) {
         totalOdds += option.odds;
     }
 
@@ -36,24 +23,24 @@ CellBlock::CellBlock(std::string pathType) {
     int randomValue = dis(gen);
 
     int cumulativeOdds = 0;
-    for (const auto& option : options) {
+    for (const auto& option : odds) {
         cumulativeOdds += option.odds;
         if (randomValue < cumulativeOdds) {
-            this->pathName = option.pathName;
+            this->blockName = option.blockName;
             break;
         }
     }
 }
 
-CellBlock::CellBlock(string pathType, string pathName) {
-    this->pathType = pathType;
-    this->pathName = pathName;
+CellBlock::CellBlock(string blockType, string blockName) {
+    this->blockType = blockType;
+    this->blockName = blockName;
 }
 
-string CellBlock::getPathName() const {
-    return this->pathName;
+string CellBlock::getBlockName() const {
+    return this->blockName;
 }
 
-string CellBlock::getPathType() const {
-    return this->pathType;
+string CellBlock::getBlockType() const {
+    return this->blockType;
 }

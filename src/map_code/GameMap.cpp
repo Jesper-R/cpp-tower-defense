@@ -42,7 +42,7 @@ void GameMap::loadMapFromFile(std::string filename) {
         if (pathName == "pond" || pathName == "stone") {
             blocksPlacement = true;
         }
-        map[x][y] = GridCell(sf::Vector2u(x, y), pathType, pathName, blocksPlacement);
+        map[x][y] = GridCell(sf::Vector2i(x, y), pathType, pathName, blocksPlacement);
     };
 
     for (const auto& path : mapData["paths"]) {
@@ -68,11 +68,11 @@ void GameMap::loadMapFromFile(std::string filename) {
 
     for (int i = 0; i < width; ++i) {
        for (int j = 0; j < height; ++j) {
-           CellBlock* path = map[i][j].getPath();
+           CellBlock* path = map[i][j].getBlock();
            if (!path) {
                bool blocksPlacement = false;
 
-               map[i][j] = GridCell(sf::Vector2u(i, j), "grid_blocks", CellBlock("grid_blocks").getPathName(), blocksPlacement);
+               map[i][j] = GridCell(sf::Vector2i(i, j), "grid_blocks", CellBlock("grid_blocks").getBlockName(), blocksPlacement);
            }
        }
     }
@@ -84,9 +84,9 @@ void GameMap::render(sf::RenderWindow &window) {
     for (int i = 0; i < this->width; ++i) {
         for (int j = 0; j < this->height; ++j) {
             sf::Texture texture;
-            CellBlock* path = map[i][j].getPath();
-            if (path && !texture.loadFromFile("../src/assets/" + path->getPathType() + "/" + path->getPathName() + ".png")) {
-                throw runtime_error("Failed to load texture: " + path->getPathName());
+            CellBlock* path = map[i][j].getBlock();
+            if (path && !texture.loadFromFile("../src/assets/" + path->getBlockType() + "/" + path->getBlockName() + ".png")) {
+                throw runtime_error("Failed to load texture: " + path->getBlockName());
             }
             sf::Sprite sprite;
             sprite.setPosition(i * 64, (height - j - 1) * 64);
@@ -103,8 +103,8 @@ bool GameMap::isBlocked(sf::Vector2i gridLoc) {
 void GameMap::update() {
     for (int i = 0; i < this->width; ++i) {
         for (int j = 0; j < this->height; ++j) {
-            string pathName = map[i][j].getPathName();
-            string pathType = map[i][j].getPathType();
+            string pathName = map[i][j].getBlockName();
+            string pathType = map[i][j].getBlockType();
             if (pathName == "pond" || pathName == "stone" || pathType == "paths" || pathType == "turn_paths") {
                 map[i][j].setIsBlocked(true);
             }

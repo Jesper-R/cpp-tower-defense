@@ -19,7 +19,7 @@ public:
     void addMoney(int money);
     void removeMoney(int money);
     void removeLife(int life);
-    void update(sf::RenderWindow& window);
+    void update(sf::RenderWindow& window) const;
 };
 
 

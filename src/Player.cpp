@@ -31,7 +31,7 @@ void Player::removeLife(int life) {
     this->lives -= life;
 }
 
-void Player::update(sf::RenderWindow& window) {
+void Player::update(sf::RenderWindow& window) const {
     if (lives <= 0) {
         window.close();
     }

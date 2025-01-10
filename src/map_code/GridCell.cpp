@@ -4,14 +4,14 @@
 using namespace std;
 
 GridCell::GridCell() {
-	this->path = nullptr;
-	this->gridPos = sf::Vector2u(0, 0);
+	this->block = nullptr;
+	this->gridPos = sf::Vector2i(0, 0);
 	this->isBlocked = false;
 	this->containsTower = false;
 }
 
-GridCell::GridCell(sf::Vector2u gridPos, string pathType, string pathName, bool isBlocked) {
-	this->path = new CellBlock(pathType, pathName);
+GridCell::GridCell(sf::Vector2i gridPos, string blockType, string blockName, bool isBlocked) {
+	this->block = new CellBlock(blockType, blockName);
 	this->gridPos = gridPos;
 	this->isBlocked = isBlocked;
 	this->containsTower = false;
@@ -25,14 +25,14 @@ bool GridCell::getIsBlocked() const {
 	return this->isBlocked;
 }
 
-string GridCell::getPathType() const {
-	return this->path->getPathType();
+string GridCell::getBlockType() const {
+	return this->block->getBlockType();
 }
 
-string GridCell::getPathName() const {
-	return this->path->getPathName();
+string GridCell::getBlockName() const {
+	return this->block->getBlockName();
 }
 
-CellBlock * GridCell::getPath() const {
-	return this->path;
+CellBlock * GridCell::getBlock() const {
+	return this->block;
 }
