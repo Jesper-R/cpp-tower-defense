@@ -7,7 +7,6 @@
 #include "tower_code/Tower.h"
 using namespace std;
 
-
 class TowerManager {
     vector<Tower*> towers;
     vector<sf::Vector2i> occupiedGridLocs;
@@ -15,7 +14,7 @@ class TowerManager {
 public:
     TowerManager();
     ~TowerManager();
-    void placeTower(sf::Vector2i gridLoc, string towerType, GameMap& gameMap, Player& player, ProjectileManager& projectileManager, WaveManager& waveManager);
+    void placeTower(sf::Vector2i gridLoc, string towerType, GameMap& gameMap, Player& player);
     void update(WaveManager& waveManager, ProjectileManager& projectileManager);
     void render(sf::RenderWindow& window);
 };

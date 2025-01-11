@@ -4,6 +4,7 @@
 
 #include "Enemy.h"
 
+#include <cmath>
 #include <iostream>
 
 #include "../map_code/GameMap.h"
@@ -12,8 +13,11 @@ Enemy::Enemy(float health, float speed, int value, const std::string& textureFil
     : GameObject(textureFile), health(health), speed(speed), value(value), damage(damage) {
 }
 
-void Enemy::takeDamage(float damage) {
-    this->health -= damage;
+void Enemy::takeDamage(float damage, int armor) {
+    damage -= armor;
+    if (damage > 0) {
+        this->health -= damage;
+    }
     std::cout << "Enemy took damage, health: " << this->health << std::endl;
     if (this->health <= 0) {
         dead = true;
@@ -26,38 +30,44 @@ void Enemy::die() {
 }
 
 void Enemy::update(float deltaTime) {
-
+    move();
 }
 
 void Enemy::render(sf::RenderWindow &window) {
+    sf::Sprite* sprite = getSprite();
+    sprite->setPosition(sf::Vector2f(this->getCurrentPos()));
+    window.draw(*sprite);
 }
 
 void Enemy::move() {
+    vector<sf::Vector2i> path = getPathFindingData();
+    //path[0] = sf::Vector2i(path[0].x + 64, path[0].y);
+    if (currentTargetIndex >= path.size()) {
+        setReachedEnd(true);
+        return;
+    }
+    if (currentTargetIndex == 0) {
+        setCurrentPos(path[0]);
+        currentTargetIndex++;
+        return;
+    }
+    sf::Vector2i targetPos = path[currentTargetIndex];
+    sf::Vector2i currentPos = getCurrentPos();
+    sf::Vector2f direction = sf::Vector2f(targetPos - currentPos);
+    float length = sqrt(direction.x * direction.x + direction.y * direction.y);
+    direction /= length;
+    currentPos += sf::Vector2i(direction * getSpeed());
+    setCurrentPos(currentPos);
+    if (length <= getSpeed()) {
+        currentPos = targetPos;
+        currentTargetIndex++;
+    }
 }
 
-void Enemy::setPath(GameMap *map) {
-    pathFindingData.push_back(map->gridToPixel(map->getStartGridLoc()));
-    for (auto loc : map->getTurnGridLocs()) {
-        pathFindingData.push_back(map->gridToPixel(loc));
+void Enemy::setPath(GameMap& map) {
+    pathFindingData.push_back(map.gridToPixel(map.getStartGridLoc()));
+    for (auto loc : map.getTurnGridLocs()) {
+        pathFindingData.push_back(map.gridToPixel(loc));
     }
-    pathFindingData.push_back(map->gridToPixel(map->getEndGridLoc()));
-
-    /*this->startPos = map->gridToPixel(map->getStartGridLoc());
-    this->endPos = map->gridToPixel(map->getEndGridLoc());
-
-    for (auto loc : map->getTurnGridLocs()) {
-        this->turnLocs.push_back(map->gridToPixel(loc));
-    }
-
-    this->turnLocs.push_back(endPos);*/
+    pathFindingData.push_back(map.gridToPixel(map.getEndGridLoc()));
 }
-
-/*void Enemy::setPath(const sf::Vector2i &start, const sf::Vector2i &end) { // add turn locs here later for pathfinding
-    sf::Vector2i convertedStart = start;
-    sf::Vector2i convertedEnd = end;
-    // convert from grid to pixel, 704 window height, 64 item height, 64*y grid height
-    this->startPos = sf::Vector2i(start.x * 64, 704 - 64 - (64 * start.y));
-    this->currentPos = startPos;
-    this->endPos = sf::Vector2i(end.x * 64, 704 - 64 - (64 * end.y));
-}*/
-

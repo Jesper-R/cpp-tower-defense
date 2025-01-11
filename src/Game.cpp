@@ -21,7 +21,7 @@ void Game::handleEvents()
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
             //cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
             //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
-            towerManager.placeTower(gridLoc, "basic", gameMap, player, projectileManager, waveManager);
+            towerManager.placeTower(gridLoc, "basic", gameMap, player);
         }
 
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2) {
@@ -29,7 +29,7 @@ void Game::handleEvents()
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
             //cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
             //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
-            towerManager.placeTower(gridLoc, "wizard", gameMap, player, projectileManager, waveManager);
+            towerManager.placeTower(gridLoc, "wizard", gameMap, player);
         }
     }
 }
@@ -44,7 +44,7 @@ void Game::update()
         elapsedTimeSinceLastUpdate -= timePerFrame;
         //std::cout << "Updated elapsedTimeSinceLastUpdate: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
     }
-    waveManager.update();
+    waveManager.update(player, window, gameMap);
     gameMap.update();
     uiManager.updateUI(&player);
     towerManager.update(waveManager, projectileManager);
@@ -79,7 +79,7 @@ void Game::render()
 
 Game::Game()
     : timePerFrame(sf::seconds(1.f / 60.f)),
-      elapsedTimeSinceLastUpdate(sf::Time::Zero), waveManager(&player, &window){
+      elapsedTimeSinceLastUpdate(sf::Time::Zero){
 
     try {
         gameMap.loadMapFromFile("../src/map.json");
@@ -96,7 +96,7 @@ Game::Game()
     player.setLives(gameMap.getStartingLives());
     player.setMoney(gameMap.getStartingMoney());
     uiManager.initUI();
-    waveManager.setGameMap(gameMap);
+
 
     try {
         waveManager.loadWaveData();
@@ -104,7 +104,7 @@ Game::Game()
         std::cerr << e.what() << std::endl;
     }
 
-    waveManager.startWaveSpawning();
+    waveManager.startWaveSpawning(gameMap);
 }
 
 Game::~Game()

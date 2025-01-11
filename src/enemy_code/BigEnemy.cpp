@@ -8,7 +8,7 @@
 #include <iostream>
 
 BigEnemy::BigEnemy() : Enemy(200.0f, 1.5f, 50, "../src/assets/enemies/BigEnemy.png", 20) {
-    this->armor = 10;
+    this->armor = 5;
     deltaTime = clock.getElapsedTime().asSeconds();
 }
 
@@ -41,9 +41,8 @@ void BigEnemy::move() {
     }
 }
 
-void BigEnemy::update(float deltaTome) {
+void BigEnemy::update(float deltaTime) {
     //deltaTime = clock.getElapsedTime().asSeconds();
-    deltaTime = deltaTome;
     //Enemy::update(deltaTome); look into eventual virtual here
     //std::cout << "BigEnemy update: current deltaTime " + to_string(clock.getElapsedTime().asSeconds()) << std::endl;
     //moveTimer += deltaTome;
@@ -67,8 +66,5 @@ void BigEnemy::update(float deltaTome) {
     }
 }
 
-void BigEnemy::render(sf::RenderWindow &window) {
-    sf::Sprite* sprite = getSprite();
-    sprite->setPosition(sf::Vector2f(this->getCurrentPos()));
-    window.draw(*sprite);
-}
+
+

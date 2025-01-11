@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include "ProjectileManager.h"
+#include "../enemy_code/BigEnemy.h"
 
 Projectile::Projectile(float velocity, float damage, const std::string &textureFile, sf::Vector2f startPos, sf::Vector2f targetPos): GameObject(textureFile), velocity(velocity), damage(damage), targetPos(targetPos), startPos(startPos){
     this->currentPos = startPos;
@@ -15,7 +16,14 @@ void Projectile::checkCollision(WaveManager& waveManager) {
     vector<Enemy*> enemies = waveManager.getEnemies();
     for (auto enemy : enemies) {
         if(enemy->getSprite()->getGlobalBounds().intersects(this->getSprite()->getGlobalBounds())) {
-            enemy->takeDamage(damage);
+            BigEnemy* bigEnemy = dynamic_cast<BigEnemy*>(enemy);
+            if(bigEnemy) {
+                int armor = bigEnemy->getArmor();
+                bigEnemy->takeDamage(damage, armor);
+            } else {
+                enemy->takeDamage(damage);
+            }
+
             hit = true;
         }
     }

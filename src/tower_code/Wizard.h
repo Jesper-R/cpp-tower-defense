@@ -3,9 +3,9 @@
 #include "Tower.h"
 
 class Wizard : public Tower {
+    vector<sf::Vector2i> getTargetPositions(WaveManager& waveManager);
 public:
-    Wizard(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, ProjectileManager* projectileManager, WaveManager* waveManager);
-    vector<sf::Vector2i> getTargetPositions(WaveManager* waveManager);
+    Wizard(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player& player);
     void attack(WaveManager& waveManager, ProjectileManager& projectileManager) override;
 };
 

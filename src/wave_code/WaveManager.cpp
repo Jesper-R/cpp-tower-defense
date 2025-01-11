@@ -11,8 +11,8 @@
 using json = nlohmann::json;
 using namespace std;
 
-void WaveManager::spawnWave(WaveData wave) {
-    thread([this, wave]() {
+void WaveManager::spawnWave(WaveData wave, GameMap& map) {
+    thread([this, wave, &map]() {
         int currentGroup = 1;
         for (const auto& group : wave.getWaveComposition()) {
             for (int i = 0; i < group.count; ++i) {
@@ -30,7 +30,7 @@ void WaveManager::spawnWave(WaveData wave) {
                 }
                 if (enemy) {
                     enemies.push_back(enemy);
-                    enemy->setPath(&map);
+                    enemy->setPath(map);
                     enemy->setCurrentPos(map.gridToPixel(map.getStartGridLoc()));
                 }
             }
@@ -45,18 +45,18 @@ void WaveManager::spawnWave(WaveData wave) {
     }).detach();
 }
 
-WaveManager::WaveManager(Player* player, sf::RenderWindow* window) {
-    this->player = player;
-    this->window = window;
+WaveManager::WaveManager() {
+    //this->player = player;
+    //this->window = window;
 }
 
-void WaveManager::setGameMap(GameMap map) {
-    this->map = map;
-}
+//void WaveManager::setGameMap(GameMap map) {
+ //   this->map = map;
+//}
 
-void WaveManager::startWaveSpawning() {
+void WaveManager::startWaveSpawning(GameMap& map) {
     cout << "Starting wave spawning" << endl;
-    spawnWave(waves[currentWave-1]);
+    spawnWave(waves[currentWave-1], map);
 }
 
 bool WaveManager::isWaveDefeated(const WaveData& wave) {
@@ -97,19 +97,19 @@ void WaveManager::removeEnemy(Enemy *enemy) {
     waves[currentWave-1].decrementEnemiesLeft();
 }
 
-void WaveManager::update() {
+void WaveManager::update(Player& player, sf::RenderWindow& window, GameMap& map) {
     vector<Enemy*> toRemove;
     //cout << "WaveManager update" << endl;
     float deltaTime = clock.restart().asSeconds();
     for (auto& enemy : enemies) {
         enemy->update(deltaTime);
         if (enemy->isDead()) {
-            player->addMoney(enemy->getValue());
+            player.addMoney(enemy->getValue());
             toRemove.push_back(enemy);
         }
         if (enemy->hasReachedEnd()) {
-            player->removeLife(enemy->getDamage());
-            player->update(*window);
+            player.removeLife(enemy->getDamage());
+            player.update(window);
             toRemove.push_back(enemy);
         }
     }
@@ -120,10 +120,10 @@ void WaveManager::update() {
     if (isWaveDefeated(waves[currentWave-1])) {
         currentWave++;
         if (currentWave <= waves.size()) {
-            spawnWave(waves[currentWave-1]);
+            spawnWave(waves[currentWave-1], map);
         } else {
             cout << "All waves defeated" << endl;
-            window->close();
+            window.close();
         }
     }
 }

@@ -17,12 +17,11 @@ class BigEnemy : public Enemy {
     float sleepTimer = 0.0f;
     float deltaTime;
     sf::Clock clock;
-
 public:
     BigEnemy();
     void move() override;
-    void update(float deltaTome) override;
-    void render(sf::RenderWindow& window) override;
+    void update(float deltaTime) override;
+    int getArmor() const { return armor; }
 };
 
 

@@ -18,6 +18,7 @@ class Enemy : public GameObject {
     float speed;
     int value;
     int damage;
+    int currentTargetIndex = 0;
     sf::Vector2i startPos;
     sf::Vector2i currentPos;
     vector<sf::Vector2i> turnLocs;
@@ -27,13 +28,13 @@ class Enemy : public GameObject {
     bool reachedEnd = false;
 public:
     Enemy(float health, float speed, int value, const std::string& textureFile, int damage);
-    void takeDamage(float damage);
+    virtual void takeDamage(float damage, int armor=0);
     void die();
     virtual void update(float deltaTime);
     virtual void render(sf::RenderWindow& window);
     virtual void move();
     //void setPath(const sf::Vector2i& start, const sf::Vector2i& end);
-    void setPath(GameMap* map);
+    void setPath(GameMap& map);
     vector<sf::Vector2i> getPathFindingData() const { return pathFindingData; }
     void setPos(sf::Vector2f pos) { currentPos = sf::Vector2i(pos); }
     sf::Vector2i getStartPos() const { return startPos; }

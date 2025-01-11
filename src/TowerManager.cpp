@@ -1,7 +1,3 @@
-//
-// Created by Jesper Rudegran on 2024-12-31.
-//
-
 #include "TowerManager.h"
 
 #include <iostream>
@@ -19,7 +15,7 @@ TowerManager::TowerManager() {
 TowerManager::~TowerManager() {
 }
 
-void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap& gameMap, Player& player, ProjectileManager& projectileManager, WaveManager& waveManager) {
+void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap& gameMap, Player& player) {
     Tower* tower = nullptr;
     if (gameMap.isBlocked(gridLoc)) {
         cout << "Position is blocked" << endl;
@@ -40,13 +36,13 @@ void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap& g
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new StoneThrower(200, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", &player, &projectileManager, &waveManager);
+        tower = new StoneThrower(200, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", player);
     } else if (towerType == "wizard") {
         if (player.getMoney() < 100) {
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new Wizard(150, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", &player, &projectileManager, &waveManager);
+        tower = new Wizard(150, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", player);
     }
 
     tower->setTowerPos(pixelLoc);

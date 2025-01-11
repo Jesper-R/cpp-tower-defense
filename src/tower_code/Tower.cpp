@@ -15,8 +15,8 @@ sf::Vector2i Tower::getTargetPos(WaveManager& waveManager) {
     return sf::Vector2i(-1, -1);
 }
 
-Tower::Tower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, WaveManager* waveManager): GameObject(textureFile), range(range), damage(damage), cost(cost), attackSpeed(attackSpeed){
-    player->removeMoney(cost);
+Tower::Tower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player& player): GameObject(textureFile), range(range), damage(damage), cost(cost), attackSpeed(attackSpeed){
+    player.removeMoney(cost);
 }
 
 void Tower::setTowerPos(sf::Vector2i pos) {
