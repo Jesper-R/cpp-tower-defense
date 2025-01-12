@@ -24,6 +24,7 @@ private:
     Player player;
     WaveManager waveManager;
     TowerManager towerManager;
+    ProjectileManager projectileManager;
 
 
 

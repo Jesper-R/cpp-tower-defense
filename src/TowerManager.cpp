@@ -12,16 +12,16 @@
 
 
 
-TowerManager::TowerManager(WaveManager *waveManager) {
-    this->waveManager = waveManager;
+TowerManager::TowerManager() {
+
 }
 
 TowerManager::~TowerManager() {
 }
 
-void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap* gameMap, Player* player) {
+void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap& gameMap, Player& player, ProjectileManager& projectileManager, WaveManager& waveManager) {
     Tower* tower = nullptr;
-    if (gameMap->isBlocked(gridLoc)) {
+    if (gameMap.isBlocked(gridLoc)) {
         cout << "Position is blocked" << endl;
         return;
     }
@@ -31,39 +31,39 @@ void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap* g
     }
 
     occupiedGridLocs.push_back(gridLoc);
-    sf::Vector2i pixelLoc = gameMap->gridToPixel(gridLoc);
+    sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
 
 
 
     if (towerType == "basic") {
-        if (player->getMoney() < 50) {
+        if (player.getMoney() < 50) {
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new StoneThrower(200, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", player, &projectileManager, waveManager);
+        tower = new StoneThrower(200, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", &player, &projectileManager, &waveManager);
     } else if (towerType == "wizard") {
-        if (player->getMoney() < 100) {
+        if (player.getMoney() < 100) {
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new Wizard(150, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", player, &projectileManager, waveManager);
+        tower = new Wizard(150, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", &player, &projectileManager, &waveManager);
     }
 
     tower->setTowerPos(pixelLoc);
     towers.push_back(tower);
 }
 
-void TowerManager::update() {
+void TowerManager::update(WaveManager& waveManager) {
     float deltaTime = clock.restart().asSeconds();
     for (auto& tower : towers) {
         tower->update(deltaTime);
     }
-    projectileManager.update();
+
 }
 
 void TowerManager::render(sf::RenderWindow& window) {
     for (auto& tower : towers) {
         tower->render(window);
     }
-    projectileManager.render(window);
+
 }

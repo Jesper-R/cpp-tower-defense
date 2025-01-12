@@ -48,7 +48,7 @@ void Tower::attack(WaveManager *waveManager) {
     sf::Vector2i targetPos = getTargetPos(waveManager);
     if (targetPos == sf::Vector2i(-1, -1)) return;
     std::cout << "StoneThrower attack" << std::endl;
-    getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), sf::Vector2i(targetPos), 10, 10, "../src/assets/projectiles/stone.png", waveManager);
+    getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), sf::Vector2i(targetPos), 10, 10, "../src/assets/projectiles/stone.png", *waveManager);
 }
 
 void Tower::render(sf::RenderWindow &window) { // implement dynamic bindning, some towers will have their own rendering? some will use this one

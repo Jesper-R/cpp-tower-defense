@@ -25,6 +25,6 @@ void Wizard::attack(WaveManager* waveManager) {
     vector<sf::Vector2i> targetPositions = getTargetPositions(waveManager);
     if (targetPositions.empty()) return;
     for (auto pos : targetPositions) {
-        getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), pos, 10, 10, "../src/assets/projectiles/fireball.png", waveManager);
+        getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), pos, 10, 10, "../src/assets/projectiles/fireball.png", *waveManager);
     }
 }

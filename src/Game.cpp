@@ -21,7 +21,7 @@ void Game::handleEvents()
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
             //cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
             //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
-            towerManager.placeTower(gridLoc, "basic", &gameMap, &player);
+            towerManager.placeTower(gridLoc, "basic", gameMap, player, projectileManager, waveManager);
         }
 
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2) {
@@ -29,7 +29,7 @@ void Game::handleEvents()
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
             //cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
             //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
-            towerManager.placeTower(gridLoc, "wizard", &gameMap, &player);
+            towerManager.placeTower(gridLoc, "wizard", gameMap, player, projectileManager, waveManager);
         }
     }
 }
@@ -47,7 +47,8 @@ void Game::update()
     waveManager.update();
     gameMap.update();
     uiManager.updateUI(&player);
-    towerManager.update();
+    towerManager.update(waveManager);
+    projectileManager.update(waveManager);
 }
 
 void Game::render()
@@ -72,12 +73,13 @@ void Game::render()
     uiManager.renderUI(this->window, player);
     waveManager.render(this->window);
     towerManager.render(this->window);
+    projectileManager.render(this->window);
     this->window.display();
 }
 
 Game::Game()
     : timePerFrame(sf::seconds(1.f / 60.f)),
-      elapsedTimeSinceLastUpdate(sf::Time::Zero), waveManager(&player, &window), towerManager(&waveManager){
+      elapsedTimeSinceLastUpdate(sf::Time::Zero), waveManager(&player, &window){
 
     try {
         gameMap.loadMapFromFile("../src/map.json");

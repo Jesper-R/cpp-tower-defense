@@ -14,12 +14,10 @@ class Projectile : public GameObject {
     float velocity;
     float damage;
     bool hit = false;
-    WaveManager* waveManager;
-    ProjectileManager* projectileManager;
 public:
-    Projectile(float velocity, float damage, const std::string& textureFile, sf::Vector2f startPos, sf::Vector2f targetPos, WaveManager* waveManager, ProjectileManager* projectileManager);
-    void checkCollision(WaveManager* waveManager);
-    void update();
+    Projectile(float velocity, float damage, const std::string& textureFile, sf::Vector2f startPos, sf::Vector2f targetPos);
+    void checkCollision(WaveManager& waveManager);
+    void update(WaveManager& waveManager);
     void move();
     void render(sf::RenderWindow& window);
     bool hasHit() const;

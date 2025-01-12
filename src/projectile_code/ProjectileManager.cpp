@@ -3,8 +3,8 @@
 using namespace std;
 
 void ProjectileManager::addProjectile(sf::Vector2i towerPos, sf::Vector2i targetPos, float velocity, float damage,
-    const string &textureFile, WaveManager* waveManager) {
-    projectiles.push_back(new Projectile(velocity, damage, textureFile, sf::Vector2f(towerPos), sf::Vector2f(targetPos), waveManager, this));
+    const string &textureFile, WaveManager& waveManager) {
+    projectiles.push_back(new Projectile(velocity, damage, textureFile, sf::Vector2f(towerPos), sf::Vector2f(targetPos)));
 }
 
 void ProjectileManager::removeProjectile(Projectile *projectile) {
@@ -12,11 +12,11 @@ void ProjectileManager::removeProjectile(Projectile *projectile) {
     projectiles.erase(remove(projectiles.begin(), projectiles.end(), projectile), projectiles.end());
 }
 
-void ProjectileManager::update() {
+void ProjectileManager::update(WaveManager& waveManager) {
     vector<Projectile*> toRemove;
 
     for (auto& projectile : projectiles) {
-        projectile->update();
+        projectile->update(waveManager);
         if (projectile->hasHit()) {
             toRemove.push_back(projectile);
         }
