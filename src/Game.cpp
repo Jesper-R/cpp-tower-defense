@@ -47,7 +47,7 @@ void Game::update()
     waveManager.update();
     gameMap.update();
     uiManager.updateUI(&player);
-    towerManager.update(waveManager);
+    towerManager.update(waveManager, projectileManager);
     projectileManager.update(waveManager);
 }
 

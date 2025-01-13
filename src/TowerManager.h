@@ -16,7 +16,7 @@ public:
     TowerManager();
     ~TowerManager();
     void placeTower(sf::Vector2i gridLoc, string towerType, GameMap& gameMap, Player& player, ProjectileManager& projectileManager, WaveManager& waveManager);
-    void update(WaveManager& waveManager);
+    void update(WaveManager& waveManager, ProjectileManager& projectileManager);
     void render(sf::RenderWindow& window);
 };
 

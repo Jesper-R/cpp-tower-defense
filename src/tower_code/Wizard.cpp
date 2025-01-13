@@ -2,7 +2,7 @@
 #include <iostream>
 
 Wizard::Wizard(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player *player, ProjectileManager* projectileManager, WaveManager* waveManager): Tower(range, damage, attackSpeed, cost, textureFile, player, waveManager) {
-    setProjectileManager(projectileManager);
+    //setProjectileManager(projectileManager);
 }
 
 vector<sf::Vector2i> Wizard::getTargetPositions(WaveManager *waveManager) {
@@ -20,11 +20,11 @@ vector<sf::Vector2i> Wizard::getTargetPositions(WaveManager *waveManager) {
     return targetPositions;
 }
 
-void Wizard::attack(WaveManager* waveManager) {
+void Wizard::attack(WaveManager& waveManager, ProjectileManager& projectileManager) {
     std::cout << "Wizard attack" << std::endl;
-    vector<sf::Vector2i> targetPositions = getTargetPositions(waveManager);
+    vector<sf::Vector2i> targetPositions = getTargetPositions(&waveManager);
     if (targetPositions.empty()) return;
     for (auto pos : targetPositions) {
-        getProjectileManager()->addProjectile(sf::Vector2i(this->getPosition()), pos, 10, 10, "../src/assets/projectiles/fireball.png", *waveManager);
+        projectileManager.addProjectile(sf::Vector2i(this->getPosition()), pos, 10, 10, "../src/assets/projectiles/fireball.png", waveManager);
     }
 }

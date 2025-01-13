@@ -6,7 +6,7 @@ class Wizard : public Tower {
 public:
     Wizard(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, ProjectileManager* projectileManager, WaveManager* waveManager);
     vector<sf::Vector2i> getTargetPositions(WaveManager* waveManager);
-    void attack(WaveManager* waveManager) override;
+    void attack(WaveManager& waveManager, ProjectileManager& projectileManager) override;
 };
 
 #endif //WIZARD_H

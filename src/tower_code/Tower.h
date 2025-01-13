@@ -12,19 +12,14 @@ class Tower : public GameObject {
     float attackSpeed;
     float attackTimer = 0.0f;
     int cost;
-    ProjectileManager* projectileManager = nullptr;
-    WaveManager* waveManager = nullptr;
     sf::Vector2i towerPos;
-    sf::Vector2i getTargetPos(WaveManager* waveManager);
+    sf::Vector2i getTargetPos(WaveManager& waveManager);
 public:
     Tower(int range, float damage, float attackSpeed, int cost, const std::string& textureFile, Player* player, WaveManager* waveManager);
-    void update(float deltaTime);
+    void update(float deltaTime, ProjectileManager& projectileManager, WaveManager& waveManager);
     void setTowerPos(sf::Vector2i pos);
-    void setProjectileManager(ProjectileManager* projectileManager);
     int getRange() const;
-    ProjectileManager* getProjectileManager() const;
-    WaveManager* getWaveManager() { return waveManager; }
-    virtual void attack(WaveManager* waveManager);
+    virtual void attack(WaveManager& waveManager, ProjectileManager& projectileManager);
     virtual void render(sf::RenderWindow& window);
 };
 

@@ -53,10 +53,10 @@ void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap& g
     towers.push_back(tower);
 }
 
-void TowerManager::update(WaveManager& waveManager) {
+void TowerManager::update(WaveManager& waveManager, ProjectileManager& projectileManager) {
     float deltaTime = clock.restart().asSeconds();
     for (auto& tower : towers) {
-        tower->update(deltaTime);
+        tower->update(deltaTime, projectileManager, waveManager);
     }
 
 }

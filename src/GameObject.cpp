@@ -35,8 +35,6 @@ sf::Vector2f GameObject::getPosition() const {
     return this->position;
 }
 
-
-
 void GameObject::setPosition(const sf::Vector2f &position) {
     this->position = position;
 }
