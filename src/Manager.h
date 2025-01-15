@@ -2,6 +2,7 @@
 #define MANAGER_H
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include <vector>
 using namespace std;
 

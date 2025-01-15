@@ -4,6 +4,7 @@
 #include <SFML/System/Vector2.hpp>
 #include "CellBlock.h"
 #include <string>
+#include <memory>
 using namespace std;
 
 class GridCell {

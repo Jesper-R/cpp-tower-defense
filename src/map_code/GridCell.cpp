@@ -1,7 +1,5 @@
 #include "GridCell.h"
-
 #include <iostream>
-
 #include "CellBlock.h"
 #include <string>
 using namespace std;

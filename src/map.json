@@ -63,9 +63,10 @@
             { "type": "big", "count": 1 },
             { "type": "basic", "count": 4 }
         ]},
-        { "wave_nr": 3, "spawn_delay_ms": 500, "next_group_delay_ms": 1000, "next_wave_delay_ms": 2000, "enemies": [
-            { "type": "basic", "count": 1 },
-            { "type": "basic", "count": 1 }
+        { "wave_nr": 3, "spawn_delay_ms": 2000, "next_group_delay_ms": 1000, "next_wave_delay_ms": 2000, "enemies": [
+            { "type": "basic", "count": 10 },
+            { "type": "big", "count": 2 },
+            { "type": "basic", "count": 6 }
         ]}
     ]
 }

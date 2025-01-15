@@ -22,7 +22,7 @@ public:
     int getRange() const;
     sf::Vector2i getTowerPos() const;
     virtual void attack(WaveManager& waveManager, ProjectileManager& projectileManager) = 0;
-    virtual void render(sf::RenderWindow& window);
+    void render(sf::RenderWindow& window);
 };
 
 #endif //TOWER_H
