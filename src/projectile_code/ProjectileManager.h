@@ -10,9 +10,11 @@ using namespace std;
 class ProjectileManager {
     vector<Projectile*> projectiles; // if not on heap the drawing wont work (white box problem)
 public:
+    ProjectileManager(){};
+    ~ProjectileManager();
     void addProjectile(sf::Vector2i towerPos, sf::Vector2i targetPos, float velocity, float damage, const string& textureFile, WaveManager& waveManager);
     void removeProjectile(Projectile* projectile);
-    void update(WaveManager& waveManager);
+    void update(WaveManager& waveManager, sf::RenderWindow& window);
     void render(sf::RenderWindow& window) const;
 };
 

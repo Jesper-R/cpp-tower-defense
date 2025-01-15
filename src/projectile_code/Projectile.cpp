@@ -5,6 +5,10 @@
 #include "ProjectileManager.h"
 #include "../enemy_code/BigEnemy.h"
 
+Projectile::~Projectile() {
+    cout << "Projectile destructor" << endl;
+}
+
 Projectile::Projectile(float velocity, float damage, const std::string &textureFile, sf::Vector2f startPos, sf::Vector2f targetPos): GameObject(textureFile), velocity(velocity), damage(damage), targetPos(targetPos), startPos(startPos){
     this->currentPos = startPos;
     this->direction = sf::Vector2f(targetPos) - sf::Vector2f(currentPos);

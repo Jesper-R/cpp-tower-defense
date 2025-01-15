@@ -1,8 +1,14 @@
 #include "CellBlock.h"
+
+#include <iostream>
 #include <random>
 #include <vector>
 #include <string>
 using namespace std;
+
+CellBlock::~CellBlock() {
+    cout << "CellBlock destructor" << endl;
+}
 
 CellBlock::CellBlock() {
     this->blockType = "unknown";

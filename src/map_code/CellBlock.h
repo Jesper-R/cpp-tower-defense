@@ -22,6 +22,7 @@ class CellBlock {
     };
 
 public:
+    ~CellBlock();
     CellBlock();
     CellBlock(string blockType);
     CellBlock(string blockType, string blockName);

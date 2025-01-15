@@ -2,9 +2,14 @@
 #include <string>
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 using namespace std;
 using json = nlohmann::json;
+
+GameMap::~GameMap() {
+    std::cout << "GameMap destructor" << std::endl;
+}
 
 GameMap::GameMap() {
     this->width = 0;
@@ -32,7 +37,10 @@ void GameMap::loadMapFromFile(std::string filename) {
         throw runtime_error("Error parsing map data: " + string(e.what()));
     }
 
-    vector map(width, vector<GridCell>(height));
+    this->map.resize(width);
+    for (int i = 0; i < width; ++i) {
+        this->map[i].resize(height);
+    }
 
     auto initializeGridCell = [&](const json& path, const string& pathType, bool blocksPlacement = false)
     {
@@ -42,7 +50,7 @@ void GameMap::loadMapFromFile(std::string filename) {
         if (pathName == "pond" || pathName == "stone") {
             blocksPlacement = true;
         }
-        map[x][y] = GridCell(sf::Vector2i(x, y), pathType, pathName, blocksPlacement);
+        this->map[x][y] = GridCell(sf::Vector2i(x, y), pathType, pathName, blocksPlacement);
     };
 
     for (const auto& path : mapData["paths"]) {
@@ -55,36 +63,26 @@ void GameMap::loadMapFromFile(std::string filename) {
 
     for (const auto& path : mapData["turn_paths"]) {
         initializeGridCell(path, "paths");
-        //int index = path["index"];
-
         sf::Vector2i position(path["x"], path["y"]);
         turnGridLocs.push_back(position);
-        //turnGridLocs.push_back({index, position});
     }
-
-    /*std::sort(turnGridLocs.begin(), turnGridLocs.end(), [](const auto& a, const auto& b) {
-        return a.first < b.first;
-    });*/
 
     for (int i = 0; i < width; ++i) {
        for (int j = 0; j < height; ++j) {
-           CellBlock* path = map[i][j].getBlock();
+           CellBlock* path = &this->map[i][j].getBlock();
            if (!path) {
                bool blocksPlacement = false;
-
-               map[i][j] = GridCell(sf::Vector2i(i, j), "grid_blocks", CellBlock("grid_blocks").getBlockName(), blocksPlacement);
+               this->map[i][j] = GridCell(sf::Vector2i(i, j), "grid_blocks", CellBlock("grid_blocks").getBlockName(), blocksPlacement);
            }
        }
     }
-
-    this->map = map;
 }
 
 void GameMap::render(sf::RenderWindow &window) {
     for (int i = 0; i < this->width; ++i) {
         for (int j = 0; j < this->height; ++j) {
             sf::Texture texture;
-            CellBlock* path = map[i][j].getBlock();
+            CellBlock* path = &map[i][j].getBlock();
             if (path && !texture.loadFromFile("../src/assets/" + path->getBlockType() + "/" + path->getBlockName() + ".png")) {
                 throw runtime_error("Failed to load texture: " + path->getBlockName());
             }

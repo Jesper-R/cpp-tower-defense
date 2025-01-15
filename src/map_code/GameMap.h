@@ -15,6 +15,7 @@ class GameMap {
 	int width, height;
 	int startingMoney, startingLives;
 public:
+	~GameMap();
 	GameMap();
 	int getGridWidth() const;
 	int getGridHeight() const;

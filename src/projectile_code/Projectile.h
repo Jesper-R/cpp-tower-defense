@@ -15,6 +15,7 @@ class Projectile : public GameObject {
     float damage;
     bool hit = false;
 public:
+    ~Projectile();
     Projectile(float velocity, float damage, const std::string& textureFile, sf::Vector2f startPos, sf::Vector2f targetPos);
     void checkCollision(WaveManager& waveManager);
     void update(WaveManager& waveManager);

@@ -1,7 +1,14 @@
 #include "GridCell.h"
+
+#include <iostream>
+
 #include "CellBlock.h"
 #include <string>
 using namespace std;
+
+GridCell::~GridCell() {
+	std::cout << "GridCell destructor" << std::endl;
+}
 
 GridCell::GridCell() {
 	this->block = nullptr;
@@ -11,7 +18,7 @@ GridCell::GridCell() {
 }
 
 GridCell::GridCell(sf::Vector2i gridPos, string blockType, string blockName, bool isBlocked) {
-	this->block = new CellBlock(blockType, blockName);
+	this->block = make_shared<CellBlock>(blockType, blockName);
 	this->gridPos = gridPos;
 	this->isBlocked = isBlocked;
 	this->containsTower = false;
@@ -33,6 +40,7 @@ string GridCell::getBlockName() const {
 	return this->block->getBlockName();
 }
 
-CellBlock * GridCell::getBlock() const {
-	return this->block;
+CellBlock& GridCell::getBlock() {
+	return *block;
 }
+

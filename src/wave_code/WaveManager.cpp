@@ -18,7 +18,6 @@ void WaveManager::spawnWave(WaveData wave, GameMap& map) {
             for (int i = 0; i < group.count; ++i) {
                 //this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
                 if (i == 0) {} else {
-                    cout << "ENEMY SLEEP" << endl;
                     this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
                 }
 

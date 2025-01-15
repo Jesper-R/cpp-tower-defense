@@ -1,11 +1,10 @@
-//
-// Created by Jesper Rudegran on 2024-12-28.
-//
-
 #include "BigEnemy.h"
-
 #include <cmath>
 #include <iostream>
+
+BigEnemy::~BigEnemy() {
+    std::cout << "BigEnemy destroyed" << std::endl;
+}
 
 BigEnemy::BigEnemy() : Enemy(200.0f, 1.5f, 50, "../src/assets/enemies/BigEnemy.png", 20) {
     this->armor = 5;
@@ -13,11 +12,8 @@ BigEnemy::BigEnemy() : Enemy(200.0f, 1.5f, 50, "../src/assets/enemies/BigEnemy.p
 }
 
 void BigEnemy::move() {
-
     if (!isMoving) return;
-
     vector<sf::Vector2i> path = getPathFindingData();
-    //path[0] = sf::Vector2i(path[0].x + 64, path[0].y);
     if (currentTargetIndex >= path.size()) {
         setReachedEnd(true);
         return;
@@ -42,10 +38,6 @@ void BigEnemy::move() {
 }
 
 void BigEnemy::update(float deltaTime) {
-    //deltaTime = clock.getElapsedTime().asSeconds();
-    //Enemy::update(deltaTome); look into eventual virtual here
-    //std::cout << "BigEnemy update: current deltaTime " + to_string(clock.getElapsedTime().asSeconds()) << std::endl;
-    //moveTimer += deltaTome;
     if (isMoving) {
         moveTimer += deltaTime;
         if (moveTimer >= moveInterval) {
@@ -65,6 +57,3 @@ void BigEnemy::update(float deltaTime) {
         move();
     }
 }
-
-
-
