@@ -6,6 +6,7 @@ class BasicEnemy : public Enemy {
 public:
     ~BasicEnemy();
     BasicEnemy();
+    void move() override;
 };
 
 #endif //BASICENEMY_H

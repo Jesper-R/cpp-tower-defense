@@ -16,8 +16,7 @@ void WaveManager::spawnWave(WaveData wave, GameMap& map) {
         int currentGroup = 1;
         for (const auto& group : wave.getWaveComposition()) {
             for (int i = 0; i < group.count; ++i) {
-
-                if (i == 0) {} else {
+                if (i != 0) {
                     this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
                 }
 
@@ -28,7 +27,7 @@ void WaveManager::spawnWave(WaveData wave, GameMap& map) {
                     enemy = make_shared<BigEnemy>();
                 }
                 if (enemy) {
-                    enemies.push_back(enemy);
+                    addObject(enemy);
                     enemy->setPath(map);
                     enemy->setCurrentPos(map.gridToPixel(map.getStartGridLoc()));
                 }
@@ -85,22 +84,21 @@ void WaveManager::loadWaveData() {
 
 vector<Enemy*> WaveManager::getEnemies() {
     vector<Enemy*> enemyPtrs;
-    for (auto& enemy : enemies) {
+    for (auto& enemy : getObjects()) {
         enemyPtrs.push_back(enemy.get());
     }
     return enemyPtrs;
 }
 
 void WaveManager::removeEnemy(shared_ptr<Enemy> enemy) {
-    //delete enemy; not needed since destructor is called automatically when the ptr gets remooved from the vector and no longer used
-    enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
-    waves[currentWave-1].decrementEnemiesLeft();
+    removeObject(enemy);
+    waves[currentWave - 1].decrementEnemiesLeft();
 }
 
 void WaveManager::update(Player& player, sf::RenderWindow& window, GameMap& map) {
     vector<shared_ptr<Enemy>> toRemove;
     float deltaTime = clock.restart().asSeconds();
-    for (auto& enemy : enemies) {
+    for (auto& enemy : getObjects()) {
         enemy->update(deltaTime);
         if (enemy->isDead()) {
             player.addMoney(enemy->getValue());
@@ -128,7 +126,7 @@ void WaveManager::update(Player& player, sf::RenderWindow& window, GameMap& map)
 }
 
 void WaveManager::render(sf::RenderWindow &window) {
-    for (auto enemy : enemies) {
+    for (auto enemy : getObjects()) {
         enemy->render(window);
     }
 }

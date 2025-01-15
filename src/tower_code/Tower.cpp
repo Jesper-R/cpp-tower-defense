@@ -32,6 +32,10 @@ int Tower::getRange() const {
     return this->range;
 }
 
+sf::Vector2i Tower::getTowerPos() const {
+    return this->towerPos;
+}
+
 void Tower::update(float deltaTime, ProjectileManager& projectileManager, WaveManager& waveManager) {
     attackTimer += deltaTime;
     if (attackTimer >= attackSpeed) {
@@ -43,8 +47,8 @@ void Tower::update(float deltaTime, ProjectileManager& projectileManager, WaveMa
 void Tower::attack(WaveManager& waveManager, ProjectileManager& projectileManager) {
     sf::Vector2i targetPos = getTargetPos(waveManager);
     if (targetPos == sf::Vector2i(-1, -1)) return;
-    std::cout << "StoneThrower attack" << std::endl;
-    projectileManager.addProjectile(sf::Vector2i(this->getPosition()), sf::Vector2i(targetPos), 10, 10, "../src/assets/projectiles/stone.png", waveManager);
+    std::cout << "Tower attack" << std::endl;
+    projectileManager.addProjectile(sf::Vector2i(this->getPosition()), sf::Vector2i(targetPos), 10, 10, "../src/assets/projectiles/stone.png");
 }
 
 void Tower::render(sf::RenderWindow &window) {

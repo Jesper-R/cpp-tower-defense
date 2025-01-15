@@ -7,3 +7,8 @@ BasicEnemy::~BasicEnemy() {
 
 BasicEnemy::BasicEnemy() : Enemy(100.0f, 2.0f, 10, "../src/assets/enemies/BasicEnemy.png", 10) {
 }
+
+void BasicEnemy::move() {
+    Enemy::move();
+}
+

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+using namespace std;
 
 void Game::handleEvents()
 {
@@ -13,13 +14,13 @@ void Game::handleEvents()
 
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)
         {
-            std::cout << "Pressed key 1" << std::endl;
+            cout << "Pressed key 1" << endl;
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
             towerManager.placeTower(gridLoc, "basic", gameMap, player);
         }
 
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2) {
-            std::cout << "Pressed key 2" << std::endl;
+            cout << "Pressed key 2" << endl;
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
             towerManager.placeTower(gridLoc, "wizard", gameMap, player);
         }
@@ -59,8 +60,8 @@ Game::Game()
     try {
         gameMap.loadMapFromFile("../src/map.json");
     }
-    catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
+    catch (const exception& e) {
+        cerr << e.what() << endl;
     }
 
     int width = gameMap.getGridWidth() * GRID_SIZE;
@@ -74,8 +75,8 @@ Game::Game()
 
     try {
         waveManager.loadWaveData();
-    } catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
+    } catch (const exception& e) {
+        cerr << e.what() << endl;
     }
 
     waveManager.startWaveSpawning(gameMap);

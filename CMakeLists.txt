@@ -57,6 +57,7 @@ add_executable(cpp-tower-defense src/main.cpp
         src/projectile_code/ProjectileManager.h
         src/projectile_code/Projectile.cpp
         src/projectile_code/Projectile.h
+        src/Manager.h
 )
 target_link_libraries(cpp-tower-defense PRIVATE sfml-graphics)
 target_link_libraries(cpp-tower-defense PRIVATE nlohmann_json::nlohmann_json)

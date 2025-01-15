@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "WaveData.h"
+#include "../Manager.h"
 #include "../map_code/GameMap.h"
 #include "../enemy_code/Enemy.h"
 #include <SFML/Graphics.hpp>
@@ -10,10 +11,10 @@
 #include "../Player.h"
 using namespace std;
 
-class WaveManager {
+class WaveManager : public Manager<Enemy> {
     int currentWave = 1;
     vector<WaveData> waves;
-    vector<shared_ptr<Enemy>> enemies;
+    //vector<shared_ptr<Enemy>> enemies;
     sf::Clock clock;
     void spawnWave(WaveData wave, GameMap& map);
 public:
@@ -26,6 +27,7 @@ public:
     void removeEnemy(shared_ptr<Enemy> enemy);
     void update(Player& player, sf::RenderWindow& window, GameMap& map);
     void render(sf::RenderWindow& window);
+
 };
 
 #endif //WAVEMANAGER_H

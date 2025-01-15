@@ -37,18 +37,18 @@ void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap& g
     }
 
     tower->setTowerPos(pixelLoc);
-    towers.push_back(tower);
+    addObject(tower);
 }
 
 void TowerManager::update(WaveManager& waveManager, ProjectileManager& projectileManager) {
     float deltaTime = clock.restart().asSeconds();
-    for (auto& tower : towers) {
+    for (auto& tower : getObjects()) {
         tower->update(deltaTime, projectileManager, waveManager);
     }
 }
 
 void TowerManager::render(sf::RenderWindow& window) {
-    for (auto& tower : towers) {
+    for (auto& tower : getObjects()) {
         tower->render(window);
     }
 }

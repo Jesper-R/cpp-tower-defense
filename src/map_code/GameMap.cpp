@@ -47,9 +47,6 @@ void GameMap::loadMapFromFile(std::string filename) {
         int x = path["x"];
         int y = path["y"];
         string pathName = path["path_name"];
-        if (pathName == "pond" || pathName == "stone") {
-            blocksPlacement = true;
-        }
         this->map[x][y] = GridCell(sf::Vector2i(x, y), pathType, pathName, blocksPlacement);
     };
 
@@ -58,11 +55,16 @@ void GameMap::loadMapFromFile(std::string filename) {
     }
 
     for (const auto& path : mapData["grid_blocks"]) {
-        initializeGridCell(path, "grid_blocks");
+        string pathName = path["path_name"];
+        bool blocksPlacement = false;
+        if (pathName == "pond" || pathName == "stone") {
+            blocksPlacement = true;
+        }
+        initializeGridCell(path, "grid_blocks", blocksPlacement);
     }
 
     for (const auto& path : mapData["turn_paths"]) {
-        initializeGridCell(path, "paths");
+        initializeGridCell(path, "paths", true);
         sf::Vector2i position(path["x"], path["y"]);
         turnGridLocs.push_back(position);
     }

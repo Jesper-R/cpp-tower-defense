@@ -7,8 +7,8 @@
 #include "tower_code/Tower.h"
 using namespace std;
 
-class TowerManager {
-    vector<shared_ptr<Tower>> towers;
+class TowerManager : public Manager<Tower> {
+    //vector<shared_ptr<Tower>> towers;
     vector<sf::Vector2i> occupiedGridLocs;
     sf::Clock clock;
 public:
