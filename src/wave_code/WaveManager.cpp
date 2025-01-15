@@ -16,16 +16,16 @@ void WaveManager::spawnWave(WaveData wave, GameMap& map) {
         int currentGroup = 1;
         for (const auto& group : wave.getWaveComposition()) {
             for (int i = 0; i < group.count; ++i) {
-                //this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
+
                 if (i == 0) {} else {
                     this_thread::sleep_for(chrono::milliseconds(group.spawnDelay));
                 }
 
-                Enemy* enemy = nullptr;
+                shared_ptr<Enemy> enemy = nullptr;
                 if (group.enemyType == "basic") {
-                    enemy = new BasicEnemy();
+                    enemy = make_shared<BasicEnemy>();
                 } else if (group.enemyType == "big") {
-                    enemy = new BigEnemy();
+                    enemy = make_shared<BigEnemy>();
                 }
                 if (enemy) {
                     enemies.push_back(enemy);
@@ -44,14 +44,11 @@ void WaveManager::spawnWave(WaveData wave, GameMap& map) {
     }).detach();
 }
 
-WaveManager::WaveManager() {
-    //this->player = player;
-    //this->window = window;
+WaveManager::~WaveManager() {
+    cout << "WaveManager destructor" << endl;
 }
 
-//void WaveManager::setGameMap(GameMap map) {
- //   this->map = map;
-//}
+WaveManager::WaveManager() {}
 
 void WaveManager::startWaveSpawning(GameMap& map) {
     cout << "Starting wave spawning" << endl;
@@ -87,18 +84,21 @@ void WaveManager::loadWaveData() {
 }
 
 vector<Enemy*> WaveManager::getEnemies() {
-    return enemies;
+    vector<Enemy*> enemyPtrs;
+    for (auto& enemy : enemies) {
+        enemyPtrs.push_back(enemy.get());
+    }
+    return enemyPtrs;
 }
 
-void WaveManager::removeEnemy(Enemy *enemy) {
-    delete enemy;
+void WaveManager::removeEnemy(shared_ptr<Enemy> enemy) {
+    //delete enemy; not needed since destructor is called automatically when the ptr gets remooved from the vector and no longer used
     enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
     waves[currentWave-1].decrementEnemiesLeft();
 }
 
 void WaveManager::update(Player& player, sf::RenderWindow& window, GameMap& map) {
-    vector<Enemy*> toRemove;
-    //cout << "WaveManager update" << endl;
+    vector<shared_ptr<Enemy>> toRemove;
     float deltaTime = clock.restart().asSeconds();
     for (auto& enemy : enemies) {
         enemy->update(deltaTime);

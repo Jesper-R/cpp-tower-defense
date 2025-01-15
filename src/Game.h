@@ -26,8 +26,6 @@ private:
     TowerManager towerManager;
     ProjectileManager projectileManager;
 
-
-
     void handleEvents();
     void update();
     void render();

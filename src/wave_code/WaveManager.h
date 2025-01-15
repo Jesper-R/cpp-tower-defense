@@ -13,16 +13,17 @@ using namespace std;
 class WaveManager {
     int currentWave = 1;
     vector<WaveData> waves;
-    vector<Enemy*> enemies;
+    vector<shared_ptr<Enemy>> enemies;
     sf::Clock clock;
     void spawnWave(WaveData wave, GameMap& map);
 public:
+    ~WaveManager();
     WaveManager();
     void startWaveSpawning(GameMap& map);
     static bool isWaveDefeated(const WaveData& wave);
     void loadWaveData();
     vector<Enemy*> getEnemies();
-    void removeEnemy(Enemy* enemy);
+    void removeEnemy(shared_ptr<Enemy> enemy);
     void update(Player& player, sf::RenderWindow& window, GameMap& map);
     void render(sf::RenderWindow& window);
 };

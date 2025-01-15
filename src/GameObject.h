@@ -1,7 +1,3 @@
-//
-// Created by Jesper Rudegran on 2024-12-28.
-//
-
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 #include "SFML/Graphics/Sprite.hpp"
@@ -15,8 +11,6 @@ class GameObject {
     sf::Texture texture;
 public:
     GameObject(std::string textureFile);
-    void update();
-    void render();
     void setTexture(const std::string& textureFile);
     sf::Sprite* getSprite();
     sf::Texture getTexture() const;

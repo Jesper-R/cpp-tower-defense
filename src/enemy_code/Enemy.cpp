@@ -1,13 +1,6 @@
-//
-// Created by Jesper Rudegran on 2024-12-28.
-//
-
 #include "Enemy.h"
-
 #include <cmath>
 #include <iostream>
-
-#include "../map_code/GameMap.h"
 
 Enemy::Enemy(float health, float speed, int value, const std::string& textureFile, int damage)
     : GameObject(textureFile), health(health), speed(speed), value(value), damage(damage) {
@@ -41,7 +34,6 @@ void Enemy::render(sf::RenderWindow &window) {
 
 void Enemy::move() {
     vector<sf::Vector2i> path = getPathFindingData();
-    //path[0] = sf::Vector2i(path[0].x + 64, path[0].y);
     if (currentTargetIndex >= path.size()) {
         setReachedEnd(true);
         return;

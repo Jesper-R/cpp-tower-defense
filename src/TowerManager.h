@@ -8,7 +8,7 @@
 using namespace std;
 
 class TowerManager {
-    vector<Tower*> towers;
+    vector<shared_ptr<Tower>> towers;
     vector<sf::Vector2i> occupiedGridLocs;
     sf::Clock clock;
 public:
@@ -18,7 +18,5 @@ public:
     void update(WaveManager& waveManager, ProjectileManager& projectileManager);
     void render(sf::RenderWindow& window);
 };
-
-
 
 #endif //TOWERMANAGER_H

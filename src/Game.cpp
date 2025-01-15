@@ -1,10 +1,6 @@
 #include "Game.h"
 #include <iostream>
 
-#include "map_code/GameMap.h"
-
-
-
 void Game::handleEvents()
 {
     sf::Event event;
@@ -19,16 +15,12 @@ void Game::handleEvents()
         {
             std::cout << "Pressed key 1" << std::endl;
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
-            //cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
-            //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
             towerManager.placeTower(gridLoc, "basic", gameMap, player);
         }
 
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2) {
             std::cout << "Pressed key 2" << std::endl;
             sf::Vector2i gridLoc = gameMap.pixelToGrid(sf::Mouse::getPosition(window));
-            //cout << "gridLoc: " << gridLoc.x << ", " << gridLoc.y << endl;
-            //sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
             towerManager.placeTower(gridLoc, "wizard", gameMap, player);
         }
     }
@@ -37,13 +29,11 @@ void Game::handleEvents()
 void Game::update()
 {
     elapsedTimeSinceLastUpdate += clock.restart();
-    //std::cout << "Elapsed time: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
-
     while (elapsedTimeSinceLastUpdate > timePerFrame)
     {
         elapsedTimeSinceLastUpdate -= timePerFrame;
-        //std::cout << "Updated elapsedTimeSinceLastUpdate: " << elapsedTimeSinceLastUpdate.asSeconds() << std::endl;
     }
+
     waveManager.update(player, window, gameMap);
     gameMap.update();
     uiManager.updateUI(&player);
@@ -54,21 +44,6 @@ void Game::update()
 void Game::render()
 {
     this->window.clear();
-    /*sf::CircleShape shape(50);
-    shape.setFillColor(sf::Color::Red);
-    this->window.draw(shape);
-    for (int i = 0; i < GRID_HEIGHT * GRID_WIDTH; ++i) {
-        sf::Texture texture;
-        if (!texture.loadFromFile("../src/assets/paths/0000/grass.png"))
-        {
-            std::cout << "Failed to load texture" << std::endl;
-        }
-        sf::Sprite sprite;
-        sprite.setPosition(i % GRID_WIDTH * GRID_SIZE, i / GRID_WIDTH * GRID_SIZE);
-        sprite.setTexture(texture);
-        this->window.draw(sprite);
-    }*/
-
     gameMap.render(this->window);
     uiManager.renderUI(this->window, player);
     waveManager.render(this->window);
@@ -97,7 +72,6 @@ Game::Game()
     player.setMoney(gameMap.getStartingMoney());
     uiManager.initUI();
 
-
     try {
         waveManager.loadWaveData();
     } catch (const std::exception& e) {
@@ -107,16 +81,12 @@ Game::Game()
     waveManager.startWaveSpawning(gameMap);
 }
 
-Game::~Game()
-{
-    //delete this->balloon;
-}
+Game::~Game(){}
 
 void Game::run()
 {
     while (this->window.isOpen())
     {
-        //std::cout << "Running loop..." << std::endl;
         handleEvents();
         update();
         render();

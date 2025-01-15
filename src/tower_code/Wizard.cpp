@@ -1,8 +1,7 @@
 #include "Wizard.h"
 #include <iostream>
 
-Wizard::Wizard(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player &player): Tower(range, damage, attackSpeed, cost, textureFile, player) {
-}
+Wizard::Wizard(int range, float damage, float attackSpeed, int cost, const std::string &textureFile, Player &player): Tower(range, damage, attackSpeed, cost, textureFile, player) {}
 
 vector<sf::Vector2i> Wizard::getTargetPositions(WaveManager& waveManager) {
     vector<Enemy*> enemies = waveManager.getEnemies();
@@ -17,6 +16,10 @@ vector<sf::Vector2i> Wizard::getTargetPositions(WaveManager& waveManager) {
         }
     }
     return targetPositions;
+}
+
+Wizard::~Wizard() {
+    cout << "Wizard destructor" << endl;
 }
 
 void Wizard::attack(WaveManager& waveManager, ProjectileManager& projectileManager) {

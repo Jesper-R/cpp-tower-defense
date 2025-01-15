@@ -1,22 +1,15 @@
 #include "TowerManager.h"
-
 #include <iostream>
-
 #include "map_code/GameMap.h"
 #include "tower_code/StoneThrower.h"
 #include "tower_code/Wizard.h"
 
+TowerManager::TowerManager() {}
 
-
-TowerManager::TowerManager() {
-
-}
-
-TowerManager::~TowerManager() {
-}
+TowerManager::~TowerManager() {}
 
 void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap& gameMap, Player& player) {
-    Tower* tower = nullptr;
+    shared_ptr<Tower> tower = nullptr;
     if (gameMap.isBlocked(gridLoc)) {
         cout << "Position is blocked" << endl;
         return;
@@ -29,20 +22,18 @@ void TowerManager::placeTower(sf::Vector2i gridLoc, string towerType, GameMap& g
     occupiedGridLocs.push_back(gridLoc);
     sf::Vector2i pixelLoc = gameMap.gridToPixel(gridLoc);
 
-
-
     if (towerType == "basic") {
         if (player.getMoney() < 50) {
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new StoneThrower(200, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", player);
+        tower = make_shared<StoneThrower>(200, 10, 1, 50, "../src/assets/towers/lvl1/stoneThrower.png", player);
     } else if (towerType == "wizard") {
         if (player.getMoney() < 100) {
             cout << "Not enough money" << endl;
             return;
         }
-        tower = new Wizard(150, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", player);
+        tower = make_shared<Wizard>(150, 20, 3, 100, "../src/assets/towers/lvl1/wizard.png", player);
     }
 
     tower->setTowerPos(pixelLoc);
@@ -54,12 +45,10 @@ void TowerManager::update(WaveManager& waveManager, ProjectileManager& projectil
     for (auto& tower : towers) {
         tower->update(deltaTime, projectileManager, waveManager);
     }
-
 }
 
 void TowerManager::render(sf::RenderWindow& window) {
     for (auto& tower : towers) {
         tower->render(window);
     }
-
 }

@@ -1,17 +1,11 @@
-//
-// Created by Jesper Rudegran on 2024-12-28.
-//
-
 #ifndef ENEMY_H
 #define ENEMY_H
 
 #include "../GameObject.h";
 #include <SFML/Graphics.hpp>
 #include <vector>
-
+#include "../map_code/GameMap.h"
 using namespace std;
-
-class GameMap;
 
 class Enemy : public GameObject {
     float health;

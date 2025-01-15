@@ -8,7 +8,7 @@ using namespace std;
 using json = nlohmann::json;
 
 GameMap::~GameMap() {
-    std::cout << "GameMap destructor" << std::endl;
+    cout << "GameMap destructor" << endl;
 }
 
 GameMap::GameMap() {

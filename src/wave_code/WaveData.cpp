@@ -4,16 +4,13 @@
 
 using json = nlohmann::json;
 
-WaveData::WaveData() {
-    //loadGroupData();
-}
+WaveData::WaveData() {}
 
 WaveData::WaveData(int waveNumber, int nexWaveDelay) {
     this->waveNumber = waveNumber;
     this->nextWaveDelay = nexWaveDelay;
     loadGroupData(waveNumber);
 }
-
 
 void WaveData::loadGroupData(int waveNumber) {
     ifstream file("../src/map.json");

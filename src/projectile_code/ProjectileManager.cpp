@@ -6,7 +6,7 @@
 using namespace std;
 
 ProjectileManager::~ProjectileManager() {
-    std::cout << "ProjectileManager destructor" << std::endl;
+    cout << "ProjectileManager destructor" << endl;
 }
 
 void ProjectileManager::addProjectile(sf::Vector2i towerPos, sf::Vector2i targetPos, float velocity, float damage,

@@ -18,6 +18,7 @@ class BigEnemy : public Enemy {
     float deltaTime;
     sf::Clock clock;
 public:
+    ~BigEnemy();
     BigEnemy();
     void move() override;
     void update(float deltaTime) override;

@@ -1,7 +1,3 @@
-//
-// Created by Jesper Rudegran on 2024-12-27.
-//
-
 #include "UIManager.h"
 
 #include <iostream>
@@ -42,11 +38,9 @@ void UIManager::initUI() {
     moneyText.setCharacterSize(64);
 
     moneyText.setLineSpacing(0.1f);
-    //moneyText.setOrigin(0, moneyText.getLocalBounds().top); // Set origin to top-left corner
     moneyText.setFillColor(sf::Color::White);
     moneyText.setOutlineThickness(1);
     moneyText.setOutlineColor(sf::Color::Black);
-    //moneyText.setOrigin(0, moneyText.getLocalBounds().top); // Set origin to top-left corner
     moneyText.setPosition(68, 20 - 30);
 
     if (!coinTexture.loadFromFile("../src/assets/UI/coin.png")) {
@@ -64,10 +58,4 @@ void UIManager::initUI() {
     heartSprite.setTexture(heartTexture);
     heartSprite.setScale(3.f, 3.f);
     heartSprite.setPosition(10, 60);
-}
-
-void UIManager::renderLives() {
-}
-
-void UIManager::renderMoney() {
 }

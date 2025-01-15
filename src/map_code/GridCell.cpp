@@ -7,7 +7,7 @@
 using namespace std;
 
 GridCell::~GridCell() {
-	std::cout << "GridCell destructor" << std::endl;
+	cout << "GridCell destructor" << endl;
 }
 
 GridCell::GridCell() {
